@@ -4,7 +4,7 @@ type LayoutProps = PropsWithChildren
 
 const Layout = ({children}: LayoutProps) => {
     return (
-        <Flex width="90rem" height="64rem" backgroundColor="#212849">{children}</Flex>
+        <Flex width="100%" minHeight="100vh" backgroundColor="color.darkBlue"  alignItems="center" justifyContent="center">{children}</Flex>
     )
 }
 

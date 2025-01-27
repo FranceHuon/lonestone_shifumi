@@ -15,7 +15,7 @@ function GameHistoric({ gamePlay }: GameHistoricProps) {
   const { t } = useTranslation('common')
   const hitHistory = gamePlay.map(round => getRoundResult(round))
   return (
-    <BoxLayout gap={2} overflowY="scroll">
+    <BoxLayout gap={2} overflowY="scroll" width={300}>
       <BoxHeading>{t('historic')}</BoxHeading>
       {hitHistory.map((item, index) => {
         return (
