@@ -1,7 +1,7 @@
 'use client'
 import type { Choice } from '../../utils/enums'
-import { Box, Flex } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Flex } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HumanAvatar, RobotAvatar } from '../../assets/Avatars'
 import { choices } from '../../utils/choices'
@@ -11,7 +11,6 @@ import PlayerName from '../ui/PlayerName'
 import PlayerSection from '../ui/PlayerSection'
 import Buttons from './Buttons'
 import ComputerPoints from './ComputerPoints'
-
 import GameLayout from './GameLayout'
 import PlayerInput from './PlayerInput'
 import PlayerPoints from './PlayerPoints'
@@ -42,7 +41,14 @@ function AppLayout() {
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
   const [isTimerActive, setIsTimerActive] = useState(false)
+  const [playerName, setPlayerName] = useState(() => {
+    return localStorage.getItem('playerName') || ''
+  })
+  console.warn(localStorage)
 
+  useEffect(() => {
+    localStorage.setItem('playerName', playerName)
+  }, [playerName])
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
     const randomIndex = Math.floor(Math.random() * values.length)
@@ -83,13 +89,13 @@ function AppLayout() {
 
       {/* <Box width={710} display="flex"> */}
       {!isStarted && (
-        <PlayerInput />
+        <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
       )}
       {isStarted && (
         <Flex flexDirection="column" justifyContent="center" alignItems="center" width={710}>
           <PointsSection>
             <PlayerSection playerAvatar={<HumanAvatar />}>
-              <PlayerName name={t('user')}></PlayerName>
+              <PlayerName name={playerName}></PlayerName>
               <PlayerPoints score={points.userPoints} />
             </PlayerSection>
             <PlayerSection
