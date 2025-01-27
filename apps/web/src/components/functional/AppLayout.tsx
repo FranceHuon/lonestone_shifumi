@@ -2,6 +2,8 @@
 import type { Choice } from '../../utils/enums'
 import { Box, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { HumanAvatar, RobotAvatar } from '../../assets/Avatars'
 import { choices } from '../../utils/choices'
 import { getPoints } from '../../utils/getPoints'
 import GameTitle from '../ui/GameTitle'
@@ -9,13 +11,11 @@ import PlayerName from '../ui/PlayerName'
 import PlayerSection from '../ui/PlayerSection'
 import Buttons from './Buttons'
 import ComputerPoints from './ComputerPoints'
+
 import GameLayout from './GameLayout'
 import PlayerPoints from './PlayerPoints'
-
-import StartGame from './StartGame'
 import RestartGame from './ReStartGame'
-import { HumanAvatar, RobotAvatar } from '../../assets/Avatars'
-import { useTranslation } from 'react-i18next'
+import StartGame from './StartGame'
 
 export type PlayersChoices = {
   userChoice: Choice
@@ -135,4 +135,3 @@ function AppLayout() {
 }
 
 export default AppLayout
-
