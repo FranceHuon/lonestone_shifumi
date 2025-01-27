@@ -13,7 +13,9 @@ import Buttons from './Buttons'
 import ComputerPoints from './ComputerPoints'
 
 import GameLayout from './GameLayout'
+import PlayerInput from './PlayerInput'
 import PlayerPoints from './PlayerPoints'
+import PointsSection from './PointsSection'
 import RestartGame from './ReStartGame'
 import StartGame from './StartGame'
 
@@ -73,39 +75,44 @@ function AppLayout() {
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
+      width="100%"
+      minHeight="100vh"
+      backgroundColor="color.darkBlue"
     >
       <GameTitle gameTitle="Shifumi !"></GameTitle>
 
-      <Box width={710} display="flex">
-        <PlayerSection playerAvatar={<HumanAvatar />}>
-          <PlayerName name={t('user')}></PlayerName>
-          <PlayerPoints score={points.userPoints} />
-        </PlayerSection>
-
-        <Box display="flex">
-          <PlayerSection
-            flexDirection="row-reverse"
-            playerAvatar={<RobotAvatar />}
-          >
-            <Box display="flex" justifyContent="flex-end">
+      {/* <Box width={710} display="flex"> */}
+      {!isStarted && (
+        <PlayerInput />
+      )}
+      {isStarted && (
+        <Flex flexDirection="column" justifyContent="center" alignItems="center" width={710}>
+          <PointsSection>
+            <PlayerSection playerAvatar={<HumanAvatar />}>
+              <PlayerName name={t('user')}></PlayerName>
+              <PlayerPoints score={points.userPoints} />
+            </PlayerSection>
+            <PlayerSection
+              flexDirection="row-reverse"
+              playerAvatar={<RobotAvatar />}
+            >
               <PlayerName name={t('computer')} textAlign="end"></PlayerName>
-            </Box>
-
-            <ComputerPoints score={points.computerPoints} />
-          </PlayerSection>
-        </Box>
-      </Box>
-
-      <GameLayout
-        isStarted={isStarted}
-        gamePlay={gamePlay}
-        winner={winner}
-        setGamePlay={setGamePlay}
-        timeLeft={timeLeft}
-        isTimerActive={isTimerActive}
-        setIsTimerActive={setIsTimerActive}
-        setTimeLeft={setTimeLeft}
-      />
+              <ComputerPoints score={points.computerPoints} />
+            </PlayerSection>
+          </PointsSection>
+          <GameLayout
+            isStarted={isStarted}
+            gamePlay={gamePlay}
+            winner={winner}
+            setGamePlay={setGamePlay}
+            timeLeft={timeLeft}
+            isTimerActive={isTimerActive}
+            setIsTimerActive={setIsTimerActive}
+            setTimeLeft={setTimeLeft}
+          />
+        </Flex>
+      )}
+      {/* </Box> */}
 
       <StartGame
         onClick={() => {
