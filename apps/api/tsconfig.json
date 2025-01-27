@@ -1,21 +1,40 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
+    "incremental": true,
+    "target": "ES2021",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "strict": true,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "plugins": [
+      { "transform": "typia/lib/transform" },
+      {
+        "transform": "@nestia/core/lib/transform",
+        "validate": "validatePrune",
+        "stringify": "assert"
+      }
+    ],
+    // Changes to allow importing the shared ESM packages (which are also built for CJS, but TS needs to find the right version)
+    // eslint-disable-next-line jsonc/sort-keys
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true
+  },
+  // For ts-node to resolve the paths correctly (like from root src/...)
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }
+
