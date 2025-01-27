@@ -17,7 +17,7 @@ function BasicButton({
 }: BasicButtonProps) {
   return (
     <Button
-      bg="secondary.electricBlue"
+      bg="color.electricBlue"
       // icon={icon}
       width={width}
       height={90}
@@ -29,11 +29,11 @@ function BasicButton({
       padding={10}
       margin={3}
       boxShadow="0 4px 0 0"
-      color="primary.hardBlue"
+      color="color.hardBlue"
       _hover={{ boxShadow: '0 14px 0 0', height: '80px' }}
       onClick={onClick}
     >
-      <Text color="tertiary.white">{buttonTitle}</Text>
+      <Text color="color.white">{buttonTitle}</Text>
     </Button>
   )
 }

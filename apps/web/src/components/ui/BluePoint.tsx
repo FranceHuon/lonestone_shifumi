@@ -5,7 +5,7 @@ function BluePoint() {
     <Box
       width={7}
       height={7}
-      backgroundColor="primary.nightBlue"
+      backgroundColor="color.nightBlue"
       borderRadius={50}
       margin={1}
     >

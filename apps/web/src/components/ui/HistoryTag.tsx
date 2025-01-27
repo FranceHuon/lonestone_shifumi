@@ -8,7 +8,7 @@ function HistoryTag({ children }: HistoryTagProps) {
     <Flex
       margin={1}
       padding={2}
-      backgroundColor="primary.nightBlue"
+      backgroundColor="color.nightBlue"
       width="100%"
       height="20%"
       justifyContent="space-between"

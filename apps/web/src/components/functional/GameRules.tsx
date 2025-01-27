@@ -14,19 +14,19 @@ function GameRules() {
     <BoxLayout width={300}>
       <BoxHeading>{t('rules')}</BoxHeading>
       <GameRulesTag>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<StoneIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<StoneIcon />} />
         <GameRulesText rule="pierre bat ciseaux"></GameRulesText>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<ScissorsIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<ScissorsIcon />} />
       </GameRulesTag>
       <GameRulesTag>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<LeafIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<LeafIcon />} />
         <GameRulesText rule="feuille bat pierre"></GameRulesText>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<StoneIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<StoneIcon />} />
       </GameRulesTag>
       <GameRulesTag>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<ScissorsIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<ScissorsIcon />} />
         <GameRulesText rule="ciseaux bat feuille"></GameRulesText>
-        <IconShifu backgroundColor="primary.darkBlue" icon={<LeafIcon />} />
+        <IconShifu backgroundColor="color.darkBlue" icon={<LeafIcon />} />
       </GameRulesTag>
       <Line />
       <GameRulesText rule="Le premier à 5 gagne"></GameRulesText>

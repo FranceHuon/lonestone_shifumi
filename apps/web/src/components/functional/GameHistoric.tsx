@@ -24,7 +24,7 @@ function GameHistoric({ gamePlay }: GameHistoricProps) {
               backgroundColor={item.iconColorLeft}
               icon={item.leftIcon}
             />
-            <Text padding={2} color="secondary.lightBlue" textAlign="center">
+            <Text padding={2} color="color.lightBlue" textAlign="center">
               {item.sentence}
             </Text>
             <IconShifu

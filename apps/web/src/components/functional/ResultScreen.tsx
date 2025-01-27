@@ -21,7 +21,7 @@ function ResultScreen({
       <Heading
         fontWeight={900}
         fontSize={34}
-        color="secondary.lightBlue"
+        color="color.lightBlue"
         margin={7}
         textAlign="center"
       >

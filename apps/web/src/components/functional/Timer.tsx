@@ -60,7 +60,7 @@ function Timer({
       alignItems="center"
       alignContent="center"
       justifyContent="center"
-      color="secondary.lightBlue"
+      color="color.lightBlue"
       width="full"
     >
       {!gamePlay.length && timeLeft > 3
@@ -73,7 +73,7 @@ function Timer({
             <Box
               display="flex"
               flexDirection="column"
-              color="secondary.lightBlue"
+              color="color.lightBlue"
               alignContent="center"
               alignItems="center"
             >

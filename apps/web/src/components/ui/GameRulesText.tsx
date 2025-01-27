@@ -6,7 +6,7 @@ interface GameRulesTextProps {
 
 function GameRulesText({ rule }: GameRulesTextProps) {
   return (
-    <Text padding={2} color="secondary.lightBlue">
+    <Text padding={2} color="color.lightBlue">
       {rule}
     </Text>
   )

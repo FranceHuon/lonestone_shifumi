@@ -13,7 +13,7 @@ function BoxLayout({ width, children, ...rest }: BoxLayoutProps) {
       display="flex"
       flexDir="column"
       rounded="2xl"
-      bg="primary.navyBlue"
+      bg="color.navyBlue"
       height={420}
       width={width}
       padding={5}

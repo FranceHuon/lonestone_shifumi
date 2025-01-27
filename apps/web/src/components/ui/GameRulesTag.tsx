@@ -10,7 +10,7 @@ function GameRulesTag({ children, ...rest }: GameRulesTagProps) {
       flexDirection="row"
       margin={2}
       padding={3}
-      backgroundColor="primary.navyBlue"
+      backgroundColor="color.navyBlue"
       width="100%"
       height={50}
       justifyContent="space-between"

@@ -39,8 +39,8 @@ export function getRoundResult({
     return {
       ...roundResult,
       sentence: 'égalité',
-      iconColorLeft: 'primary.darkBlue',
-      iconColorRight: 'primary.darkBlue',
+      iconColorLeft: 'color.darkBlue',
+      iconColorRight: 'color.darkBlue',
     }
   }
   else if (result === Result.WIN) {
@@ -50,8 +50,8 @@ export function getRoundResult({
 				`${choices[userChoice].name}`
 				+ ' bat '
 				+ `${choices[computerChoice].name}`,
-      iconColorLeft: 'tertiary.green',
-      iconColorRight: 'tertiary.red',
+      iconColorLeft: 'color.green',
+      iconColorRight: 'color.red',
     }
   }
   else {
@@ -61,8 +61,8 @@ export function getRoundResult({
 		`${choices[computerChoice].name}`
 		+ ' bat '
 		+ `${choices[userChoice].name}`,
-      iconColorLeft: 'tertiary.red',
-      iconColorRight: 'tertiary.green',
+      iconColorLeft: 'color.red',
+      iconColorRight: 'color.green',
     }
   }
 }

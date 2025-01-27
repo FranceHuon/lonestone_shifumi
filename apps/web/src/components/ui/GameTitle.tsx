@@ -9,7 +9,7 @@ function GameTitle({ gameTitle }: GameTitleProps) {
     <Heading
       fontWeight={900}
       fontSize={36}
-      color="secondary.lightBlue"
+      color="color.lightBlue"
       margin={10}
     >
       {gameTitle}

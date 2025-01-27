@@ -8,7 +8,7 @@ function EndGameDisplay() {
       justifyContent="center"
       alignItems="center"
     >
-      <Heading color="secondary.lightBlue">Fin de la partie !</Heading>
+      <Heading color="color.lightBlue">Fin de la partie !</Heading>
     </Box>
   )
 }

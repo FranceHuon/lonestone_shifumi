@@ -19,7 +19,7 @@ function SymbolCard({
     <Box
       width={160}
       height={220}
-      bg="tertiary.white"
+      bg="color.white"
       rounded="2xl"
       border="4px"
       borderColor={borderColor}

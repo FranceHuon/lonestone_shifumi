@@ -6,7 +6,7 @@ function GreenPoint() {
       width={7}
       height={7}
       margin={1}
-      backgroundColor="tertiary.green"
+      backgroundColor="color.green"
       borderRadius={50}
     >
     </Box>

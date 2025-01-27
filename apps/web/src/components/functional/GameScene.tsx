@@ -81,9 +81,9 @@ function GameScene({
               alignItems="center"
             >
               <SymbolCard
-                borderColor="secondary.electricBlue"
-                color="primary.hardBlue"
-                backgroundColor="primary.hardBlue"
+                borderColor="color.electricBlue"
+                color="color.hardBlue"
+                backgroundColor="color.hardBlue"
                 symbolName={choices[userLastGamePlay].name}
                 illu={choices[userLastGamePlay].blueIllu}
               />
@@ -100,9 +100,9 @@ function GameScene({
               alignItems="center"
             >
               <SymbolCard
-                borderColor="tertiary.red"
-                color="tertiary.red"
-                backgroundColor="secondary.darkRed"
+                borderColor="color.red"
+                color="color.red"
+                backgroundColor="color.darkRed"
                 symbolName={choices[computerLastGamePlay].name}
                 illu={choices[computerLastGamePlay].redIllu}
               >

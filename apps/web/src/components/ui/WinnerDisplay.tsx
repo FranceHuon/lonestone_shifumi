@@ -20,7 +20,7 @@ function WinnerDisplay({ winner }: WinnerDisplayProps) {
       justifyContent="center"
       alignItems="center"
     >
-      <Heading color="secondary.lightBlue">
+      <Heading color="color.lightBlue">
         {winnerName}
         {' '}
         : vainqueur!

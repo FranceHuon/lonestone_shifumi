@@ -12,12 +12,12 @@ function BoxHeading({ children, ...rest }: BoxHeadingProps) {
       height={35}
       padding={4}
       width="100%"
-      bg="primary.nightBlue"
+      bg="color.nightBlue"
     >
       <Heading
         fontWeight={900}
         fontSize={16}
-        color="secondary.lightBlue"
+        color="color.lightBlue"
         textAlign="center"
         width="100%"
         {...rest}
