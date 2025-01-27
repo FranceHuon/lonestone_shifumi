@@ -7,7 +7,7 @@ type PlayerNameProps = {
 function PlayerName({ name }: PlayerNameProps) {
   return (
     <Text color="color.lightBlue" fontWeight={900} fontSize={24}>
-      {name}
+      {name || 'Player'}
     </Text>
   )
 }

@@ -6,7 +6,6 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 const ormConfig: Options = defineConfig({
   entities: ['./dist/entities'],
   entitiesTs: ['./src/entities'],
-  dbName: 'shifumi.db',
  
   metadataProvider: TsMorphMetadataProvider,
   forceUtcTimezone: true,

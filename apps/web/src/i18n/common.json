@@ -1,8 +1,8 @@
 {
-	"title": "Shifumi !",
-	"rules": "Règles du jeu",
-	"round": "Manche",
-	"historic": "Historique des coups",
-	"user": "Moi",
-	"computer": "J-ordi"
+  "title": "Shifumi !",
+  "rules": "Règles du jeu",
+  "round": "Manche",
+  "historic": "Historique des coups",
+  "user": "Moi",
+  "computer": "J-ordi"
 }
