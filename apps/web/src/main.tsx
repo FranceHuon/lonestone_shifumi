@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from './components/ui/provider.tsx'
 import Layout from './components/ui/Layout.tsx'
 import AppLayout from './components/functional/AppLayout.tsx'
+import './theme/fonts.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
