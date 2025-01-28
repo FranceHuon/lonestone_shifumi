@@ -4,9 +4,9 @@ const customConfig = defineConfig({
   theme: {
     tokens: {
       fonts: {
-				heading: { value: `'Overpass', sans-serif` },
-				body: { value: `'Chivo', sans-serif` },
-			},
+        heading: { value: `'Overpass', sans-serif` },
+        body: { value: `'Chivo', sans-serif` },
+      },
       colors: {
         color: {
           nightBlue: { value: '#0a0f26' },
@@ -19,7 +19,7 @@ const customConfig = defineConfig({
           red: { value: '#eb5757' },
           green: { value: '#01d09e' },
           white: { value: '#ffffff' },
-        }
+        },
       },
     },
     textStyles: {
