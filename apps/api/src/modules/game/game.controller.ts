@@ -1,6 +1,7 @@
 import { Controller, Post } from "@nestjs/common";
-import {GameService} from '../game/game.service'
-import { Game } from "src/entities/game.entity";
+import { GameService } from "./game.service.js";
+import { Game } from "../../entities/game.entity.js";
+
 
 @Controller('game')
 export class GameController {
