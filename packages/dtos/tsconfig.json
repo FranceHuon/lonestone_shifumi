@@ -1,18 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Version JavaScript cible
-    "module": "ESNext", // Utiliser des modules ES
-    "moduleResolution": "node", // Utiliser la résolution de module Node.js
-    "resolveJsonModule": true, // Permet l'import de fichiers .json
-    "strict": true, // Activer toutes les vérifications strictes
-    "declaration": true, // Générer des fichiers de définition de types (.d.ts)
-    "declarationMap": true, // Générer une map pour les déclarations
-    "outDir": "./dist", // Répertoire de sortie pour les fichiers compilés
-    "esModuleInterop": true, // Permet la compatibilité avec les modules CommonJS
-    "forceConsistentCasingInFileNames": true, // Forcer la casse consistante dans les noms de fichiers
-    "isolatedModules": true, // Assurer que chaque fichier est traité comme un module isolé
-    "skipLibCheck": true // Ignorer la vérification des types des fichiers de bibliothèque
+    "target": "ESNext",
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "strict": true,
+    "strictBindCallApply": false,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "declaration": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
-  "include": ["src"], // Inclure les fichiers dans le dossier src
-  "exclude": ["node_modules", "dist"] // Exclure les dossiers node_modules et dist
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "./build.ts"]
 }

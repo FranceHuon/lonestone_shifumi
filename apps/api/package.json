@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@shifumi/api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -39,7 +39,8 @@
     "axios": "^1.6.8",
     "axios-logger": "^2.8.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@shifumi/dtos": "workspace:*"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",

@@ -11,7 +11,7 @@ function PlayerPoints({ score }: PlayerPointsProps) {
 
   return (
     <Flex>
-      {totalPoints.map((point, index) =>
+      {totalPoints.map(index =>
         score > index ? <GreenPoint key={index} /> : <BluePoint key={index} />,
       )}
     </Flex>
