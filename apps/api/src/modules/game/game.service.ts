@@ -5,17 +5,15 @@ import { Game } from "../../entities/game.entity.js";
 
 @Injectable()
 export class GameService {
-    constructor(
-        @InjectRepository(Game)
-        private readonly em: EntityManager,
-    ) {}
-    async startNewGame(): Promise<Game> {
-        const newGame = new Game();
-        newGame.createdAt = new Date();
-        newGame.updatedAt = new Date();
+        private readonly game: Game[] = [];
+
+        create(game: Game) {
+            this.game.push(game)
+        }
+
+        findAll(): Game[] {
+            return this.game
+        }
     
-        await this.em.persistAndFlush(newGame);
-    
-        return newGame;
-      }
 }
+   
