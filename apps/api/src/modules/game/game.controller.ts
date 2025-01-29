@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
-import { GameDto } from "../../../../../packages/dtos/src/gameDto.js"
 import { GameService } from "./game.service.js";
+import { GameDto } from "@shifumi/dtos";
 
 
 @Controller('game')
