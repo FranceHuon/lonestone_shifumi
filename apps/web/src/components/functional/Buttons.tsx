@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
+import { BlueLeafIllu, BlueScissorsIllu, BlueStoneIllu } from '../../assets/BlueIllus'
 import { Choice } from '../../utils/enums'
 import BasicButton from '../ui/BasicButton'
-import { BlueLeafIllu, BlueScissorsIllu, BlueStoneIllu } from '../../assets/BlueIllus'
 
 interface ButtonsProps {
   handleUserChoice: (choice: Choice) => void

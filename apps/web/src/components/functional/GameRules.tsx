@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next'
 
+import { LeafIcon, ScissorsIcon, StoneIcon } from '../../assets/Icons'
 import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
 import GameRulesTag from '../ui/GameRulesTag'
 import GameRulesText from '../ui/GameRulesText'
 import IconShifu from '../ui/IconShifu'
 import Line from '../ui/Line'
-import { LeafIcon, ScissorsIcon, StoneIcon } from '../../assets/Icons'
 
 function GameRules() {
   const { t } = useTranslation('common')

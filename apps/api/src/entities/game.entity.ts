@@ -1,12 +1,13 @@
-import { Entity, PrimaryKey, Property, ManyToOne, OneToMany, Collection } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
+
 @Entity()
 export class Game {
   @PrimaryKey()
-  id!: number;
+  id!: number
 
   @Property({ type: 'date' })
-  createdAt!: Date;
+  createdAt!: Date
 
   @Property({ type: 'date', nullable: true })
-  updatedAt!: Date | null;
+  updatedAt!: Date | null
 }
