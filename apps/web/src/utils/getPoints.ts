@@ -24,6 +24,5 @@ export function getPoints(gamePlay: PlayersChoices) {
     }
   })
 
-  console.log(points)
   return points
 }

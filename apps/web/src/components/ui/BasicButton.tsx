@@ -18,7 +18,6 @@ function BasicButton({
   return (
     <Button
       bg="color.electricBlue"
-      // icon={icon}
       width={width}
       height={90}
       rounded="2xl"
@@ -33,6 +32,7 @@ function BasicButton({
       _hover={{ boxShadow: '0 14px 0 0', height: '80px' }}
       onClick={onClick}
     >
+      {icon}
       <Text color="color.white">{buttonTitle}</Text>
     </Button>
   )

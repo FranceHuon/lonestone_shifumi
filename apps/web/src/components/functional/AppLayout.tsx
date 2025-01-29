@@ -10,10 +10,9 @@ import GameTitle from '../ui/GameTitle'
 import PlayerName from '../ui/PlayerName'
 import PlayerSection from '../ui/PlayerSection'
 import Buttons from './Buttons'
-import ComputerPoints from './ComputerPoints'
 import GameLayout from './GameLayout'
 import PlayerInput from './PlayerInput'
-import PlayerPoints from './PlayerPoints'
+import Points from './Points'
 import PointsSection from './PointsSection'
 import RestartGame from './ReStartGame'
 import StartGame from './StartGame'
@@ -87,7 +86,6 @@ function AppLayout() {
     >
       <GameTitle gameTitle="Shifumi !"></GameTitle>
 
-      {/* <Box width={710} display="flex"> */}
       {!isStarted && (
         <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
       )}
@@ -96,14 +94,14 @@ function AppLayout() {
           <PointsSection>
             <PlayerSection playerAvatar={<HumanAvatar />}>
               <PlayerName name={playerName}></PlayerName>
-              <PlayerPoints score={points.userPoints} />
+              <Points score={points.userPoints} />
             </PlayerSection>
             <PlayerSection
               flexDirection="row-reverse"
               playerAvatar={<RobotAvatar />}
             >
               <PlayerName name={t('computer')} textAlign="end"></PlayerName>
-              <ComputerPoints score={points.computerPoints} />
+              <Points score={points.computerPoints} />
             </PlayerSection>
           </PointsSection>
           <GameLayout
@@ -118,7 +116,6 @@ function AppLayout() {
           />
         </Flex>
       )}
-      {/* </Box> */}
 
       <StartGame
         onClick={() => {
