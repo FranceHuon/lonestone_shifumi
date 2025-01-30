@@ -24,7 +24,6 @@ createRoot(document.getElementById('root')!).render(
       <I18nextProvider i18n={i18n}>
         <RouterProvider router={router} />
       </I18nextProvider>
-
     </Provider>
   </StrictMode>,
 )

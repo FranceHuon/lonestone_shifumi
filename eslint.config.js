@@ -11,6 +11,7 @@ module.exports = antfu(
       '**/dist/',
       '**/temp/',
       'apps/web/src/routeTree.gen.ts',
+      'apps/web/src/components/ui/color-mode.tsx',
     ],
   },
   // From the second arguments they are ESLint Flat Configs
