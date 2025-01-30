@@ -10,8 +10,7 @@ module.exports = antfu(
     ignores: [
       '**/dist/',
       '**/temp/',
-      'ai-research/',
-      'apps/backoffice/src/routeTree.gen.ts',
+      'apps/web/src/routeTree.gen.ts',
     ],
   },
   // From the second arguments they are ESLint Flat Configs
@@ -24,7 +23,7 @@ module.exports = antfu(
     },
   },
   {
-    files: ['apps/backoffice/**/*.ts', 'apps/backoffice/**/*.json'],
+    files: ['apps/web/**/*.ts', 'apps/web/**/*.json'],
   },
   {
     files: ['packages/dtos/**/*.ts', 'packages/dtos/**/*.json'],

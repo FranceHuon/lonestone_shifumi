@@ -16,6 +16,7 @@
     "@fontsource/chivo": "^5.1.1",
     "@fontsource/overpass": "^5.1.2",
     "@shifumi/dtos": "workspace:*",
+    "@tanstack/react-query": "^5.65.1",
     "@tanstack/react-router": "^1.98.0",
     "@types/node": "^22.10.10",
     "i18next": "^24.2.1",
@@ -24,7 +25,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.0",
-    "react-icons": "^5.4.0"
+    "react-icons": "^5.4.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.16.0",

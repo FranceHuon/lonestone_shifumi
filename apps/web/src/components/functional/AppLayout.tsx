@@ -44,7 +44,6 @@ function AppLayout() {
   const [playerName, setPlayerName] = useState(() => {
     return localStorage.getItem('playerName') || ''
   })
-  console.warn(localStorage)
 
   useEffect(() => {
     localStorage.setItem('playerName', playerName)

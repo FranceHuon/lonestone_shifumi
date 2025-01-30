@@ -65,6 +65,9 @@ importers:
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
+      zod:
+        specifier: ^3.23.8
+        version: 3.24.1
     devDependencies:
       '@nestjs/cli':
         specifier: ^11.0.2
@@ -138,6 +141,9 @@ importers:
       '@shifumi/dtos':
         specifier: workspace:*
         version: link:../../packages/dtos
+      '@tanstack/react-query':
+        specifier: ^5.65.1
+        version: 5.65.1(react@18.3.1)
       '@tanstack/react-router':
         specifier: ^1.98.0
         version: 1.98.0(react-dom@18.3.1)(react@18.3.1)
@@ -165,6 +171,9 @@ importers:
       react-icons:
         specifier: ^5.4.0
         version: 5.4.0(react@18.3.1)
+      zod:
+        specifier: ^3.23.8
+        version: 3.24.1
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^3.16.0
@@ -212,7 +221,7 @@ importers:
   packages/dtos:
     dependencies:
       zod:
-        specifier: ^3.23.8
+        specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
       '@types/node':
@@ -3345,6 +3354,19 @@ packages:
   /@tanstack/history@1.98.0:
     resolution: {integrity: sha512-zFGRdwz/+lLLSKPfKJ0AA8yVb7lXGrI2WwzhQqYXMKg6npUjlq06+XnrIIml99tQGZi+LFVZidtjBZTi2C/4+A==}
     engines: {node: '>=12'}
+
+  /@tanstack/query-core@5.65.0:
+    resolution: {integrity: sha512-Bnnq/1axf00r2grRT6gUyIkZRKzhHs+p4DijrCQ3wMlA3D3TTT71gtaSLtqnzGddj73/7X5JDGyjiSLdjvQN4w==}
+    dev: false
+
+  /@tanstack/react-query@5.65.1(react@18.3.1):
+    resolution: {integrity: sha512-BSpjo4RQdJ75Mw3pqM1AJYNhanNxJE3ct7RmCZUAv9cUJg/Qmonzc/Xy2kKXeQA1InuKATSuc6pOZciWOF8TYQ==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.65.0
+      react: 18.3.1
+    dev: false
 
   /@tanstack/react-router@1.98.0(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-mnYadj+fOC8o0lIJBnvxYrVy6/5Vh+rLX1l8UuCfpIyRBxHxXarQwfgkczIdpljtQ43QU2mDtYyWdN1ADyko2A==}
@@ -6933,7 +6955,7 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.22.0(@typescript-eslint/parser@8.22.0)(eslint@9.19.0)(typescript@5.4.2)
+      '@typescript-eslint/eslint-plugin': 8.22.0(@typescript-eslint/parser@8.22.0)(eslint@9.19.0)(typescript@5.6.3)
       eslint: 9.19.0
     dev: true
 

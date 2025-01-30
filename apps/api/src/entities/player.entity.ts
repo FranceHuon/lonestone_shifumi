@@ -1,13 +1,13 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
 
 @Entity()
 export class Player {
   @PrimaryKey()
-  id!: number;
+  id!: number
 
   @Property()
-  name!: string;
+  name!: string
 
   @Property({ nullable: true })
-  avatar!: Buffer | null;
+  avatar?: Buffer | null
 }
