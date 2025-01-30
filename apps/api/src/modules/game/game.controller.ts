@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
-import { GameDto } from '@shifumi/dtos'
+import { CreateGameDto, GameDto } from '@shifumi/dtos'
 import { GameService } from './game.service.js'
 
-@Controller('game')
+@Controller('games')
 export class GameController {
   constructor(private gameService: GameService) {}
 
   @Post()
-  async create(@Body() gameDto: GameDto) {
-    this.gameService.create(gameDto)
+  async create(@Body() createGameDto: CreateGameDto) {
+    return this.gameService.create(createGameDto)
   }
 
   @Get(':id')
@@ -17,8 +17,8 @@ export class GameController {
     return 'This action returns a #${params.id} game'
   }
 
-  @Get()
-  async findAll() {
-    return this.gameService.findAll()
-  }
+  // @Get()
+  // async findAll() {
+  //   return this.gameService.findAll()
+  // }
 }

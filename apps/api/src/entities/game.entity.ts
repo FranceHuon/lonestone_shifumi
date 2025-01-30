@@ -10,4 +10,10 @@ export class Game {
 
   @Property({ type: 'date', nullable: true })
   updatedAt!: Date | null
+
+  @Property()
+  playerOneId!: number
+
+  @Property()
+  playerTwoId!: number
 }

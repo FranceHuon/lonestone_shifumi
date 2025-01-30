@@ -1,15 +1,28 @@
 import { Injectable } from '@nestjs/common'
 import { Game } from '../../entities/game.entity.js'
+import { CreateGameDto } from '@shifumi/dtos'
+import { EntityManager } from '@mikro-orm/sqlite'
 
 @Injectable()
 export class GameService {
-  private readonly game: Game[] = []
+  constructor (private readonly em: EntityManager) {}
 
-  create(game: Game) {
-    this.game.push(game)
+  async create(createGameDto: CreateGameDto) {
+    return await this.em.transactional(async (em) => {
+      const { playerOneId, playerTwoId } = createGameDto
+
+      const game = em.create(Game, {
+        playerOneId,
+        playerTwoId,
+        createdAt: new Date(),
+        updatedAt: null
+      })
+      await em.persistAndFlush(game)
+      return game
+    })
   }
 
-  findAll(): Game[] {
-    return this.game
-  }
+  // findAll(): Game[] {
+  //   return this.game
+  // }
 }
