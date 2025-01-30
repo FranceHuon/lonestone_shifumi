@@ -4,5 +4,7 @@
   "round": "Manche",
   "historic": "Historique des coups",
   "user": "Moi",
-  "computer": "J-ordi"
+  "computer": "J-ordi",
+  "start": "Commencer la partie",
+  "startAgain": "Recommencer la partie"
 }

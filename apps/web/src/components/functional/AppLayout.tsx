@@ -14,7 +14,6 @@ import GameLayout from './GameLayout'
 import PlayerInput from './PlayerInput'
 import Points from './Points'
 import PointsSection from './PointsSection'
-import RestartGame from './ReStartGame'
 import StartGame from './StartGame'
 import StartGameBis from './StartGameBis'
 
@@ -118,6 +117,7 @@ function AppLayout() {
       )}
 
       <StartGame
+        buttonTitle={t('start')}
         onClick={() => {
           setIsStarted(true)
           setIsTimerActive(true)
@@ -134,7 +134,8 @@ function AppLayout() {
         />
       )}
       {winner && (
-        <RestartGame
+        <StartGame
+          buttonTitle={t('startAgain')}
           onClick={() => {
             setGamePlay([])
             setIsTimerActive(true)

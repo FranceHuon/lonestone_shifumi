@@ -2,13 +2,14 @@ import BasicButton from '../ui/BasicButton'
 
 interface StartGameProps {
   onClick: () => void
-  isStarted: boolean
+  isStarted?: boolean
+  buttonTitle: string
 }
-function StartGame({ onClick, isStarted }: StartGameProps) {
+function StartGame({ onClick, isStarted, buttonTitle }: StartGameProps) {
   return (
     <div>
       {!isStarted && (
-        <BasicButton onClick={onClick} buttonTitle="Commencer la partie" />
+        <BasicButton onClick={onClick} buttonTitle={buttonTitle} />
       )}
     </div>
   )
