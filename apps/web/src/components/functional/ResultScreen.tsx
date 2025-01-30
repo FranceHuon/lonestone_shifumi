@@ -12,9 +12,6 @@ function ResultScreen({
   computerLastGamePlay,
 }: ResultScreenProps) {
   const roundResult = getResult(userLastGamePlay, computerLastGamePlay)
-  console.log(roundResult)
-
-  console.log(roundResult)
 
   return (
     <Box width="full">

@@ -46,10 +46,7 @@ export function getRoundResult({
   else if (result === Result.WIN) {
     return {
       ...roundResult,
-      sentence:
-				`${choices[userChoice].name}`
-				+ ' bat '
-				+ `${choices[computerChoice].name}`,
+      sentence: `${choices[userChoice].name}` + ' bat ' + `${choices[computerChoice].name}`,
       iconColorLeft: 'color.green',
       iconColorRight: 'color.red',
     }
@@ -57,10 +54,7 @@ export function getRoundResult({
   else {
     return {
       ...roundResult,
-      sentence:
-		`${choices[computerChoice].name}`
-		+ ' bat '
-		+ `${choices[userChoice].name}`,
+      sentence: `${choices[computerChoice].name}` + ' bat ' + `${choices[userChoice].name}`,
       iconColorLeft: 'color.red',
       iconColorRight: 'color.green',
     }

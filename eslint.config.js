@@ -30,4 +30,3 @@ module.exports = antfu(
     files: ['packages/dtos/**/*.ts', 'packages/dtos/**/*.json'],
   },
 )
-

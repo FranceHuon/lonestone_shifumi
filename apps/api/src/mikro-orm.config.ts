@@ -1,6 +1,6 @@
 import type { Options } from '@mikro-orm/sqlite'
-import { defineConfig, SqliteDriver } from '@mikro-orm/sqlite'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
+import { defineConfig, SqliteDriver } from '@mikro-orm/sqlite'
 // import config from './config'
 
 const ormConfig: Options = defineConfig({
@@ -15,7 +15,7 @@ const ormConfig: Options = defineConfig({
     path: './migrations',
     pathTs: './src/migrations',
   },
-  
+
 })
 
 export default ormConfig

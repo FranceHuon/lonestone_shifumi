@@ -1,25 +1,23 @@
 {
   "compilerOptions": {
+    "target": "ES2021",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "target": "ES2021",
+    "resolveJsonModule": true,
+    "strict": true,
     "declaration": true,
     "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
+    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "sourceMap": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   },
   "paths": {
     "@/*": ["./src/*"]
-  },
+  }
 }
-
-

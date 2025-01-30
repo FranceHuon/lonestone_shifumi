@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react'
 type TagCustomProps = PropsWithChildren<{
   backgroundColor: string
   key: number
-}> 
+}>
 
 function TagCustom({
   backgroundColor,

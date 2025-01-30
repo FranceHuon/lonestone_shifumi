@@ -32,6 +32,26 @@
           "nullable": true,
           "length": null,
           "mappedType": "date"
+        },
+        "player_one_id": {
+          "name": "player_one_id",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
+        },
+        "player_two_id": {
+          "name": "player_two_id",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
         }
       },
       "name": "game",
