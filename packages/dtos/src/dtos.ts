@@ -18,8 +18,15 @@ export interface CreatePlayerDto {
 }
 
 export interface RoundDto {
-  number: number
+  id: number
   gameId: number
-  playerOneMove: string
-  playerTwoMove: string
+  player1Choice: string
+  player2Choice: string
+  createdAt: Date
+  updatedAt: Date | null
+}
+
+export interface CreateRoundDto {
+  player1Choice: string
+  player2Choice: string
 }

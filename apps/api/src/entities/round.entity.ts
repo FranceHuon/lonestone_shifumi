@@ -16,7 +16,7 @@ export class Round {
   createdAt!: Date
 
   @Property({ type: 'date' })
-  updatedAt!: Date
+  updatedAt!: Date | null
 
   @ManyToOne(() => Game)
   game!: Game

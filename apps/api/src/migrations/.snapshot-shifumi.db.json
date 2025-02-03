@@ -13,6 +13,56 @@
           "length": null,
           "mappedType": "integer"
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "text"
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": null,
+          "mappedType": "text"
+        }
+      },
+      "name": "player",
+      "indexes": [
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
+        },
         "created_at": {
           "name": "created_at",
           "type": "date",
@@ -57,6 +107,26 @@
       "name": "game",
       "indexes": [
         {
+          "columnNames": [
+            "player_one_id"
+          ],
+          "composite": false,
+          "keyName": "game_player_one_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "columnNames": [
+            "player_two_id"
+          ],
+          "composite": false,
+          "keyName": "game_player_two_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
           "keyName": "primary",
           "columnNames": [
             "id"
@@ -68,7 +138,135 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {},
+      "foreignKeys": {
+        "game_player_one_id_foreign": {
+          "constraintName": "game_player_one_id_foreign",
+          "columnNames": [
+            "player_one_id"
+          ],
+          "localTableName": "game",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "player",
+          "updateRule": "cascade"
+        },
+        "game_player_two_id_foreign": {
+          "constraintName": "game_player_two_id_foreign",
+          "columnNames": [
+            "player_two_id"
+          ],
+          "localTableName": "game",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "player",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": true,
+          "primary": true,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
+        },
+        "player1choice": {
+          "name": "player1choice",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "text"
+        },
+        "player2choice": {
+          "name": "player2choice",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "text"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "date"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "date",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": null,
+          "mappedType": "date"
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "integer",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": null,
+          "mappedType": "integer"
+        }
+      },
+      "name": "round",
+      "indexes": [
+        {
+          "columnNames": [
+            "game_id"
+          ],
+          "composite": false,
+          "keyName": "round_game_id_index",
+          "constraint": false,
+          "primary": false,
+          "unique": false
+        },
+        {
+          "keyName": "primary",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "round_game_id_foreign": {
+          "constraintName": "round_game_id_foreign",
+          "columnNames": [
+            "game_id"
+          ],
+          "localTableName": "round",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "game",
+          "updateRule": "cascade"
+        }
+      },
       "nativeEnums": {}
     }
   ],
