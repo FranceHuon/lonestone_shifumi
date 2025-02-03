@@ -15,8 +15,8 @@ export async function createPlayer(newPlayer: CreatePlayerDto): Promise<PlayerDt
   return await api.post('players', { json: newPlayer }).json()
 }
 
-export async function createRound(newRound: CreateRoundDto): Promise<RoundDto> {
-  return await api.post('rounds', { json: newRound }).json()
+export async function createRound(gameId: number, newRound: CreateRoundDto): Promise<RoundDto> {
+  return await api.post(`rounds/${gameId}`, { json: newRound }).json()
 }
 
 export async function fetchOnePlayer(

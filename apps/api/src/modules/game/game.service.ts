@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable } from '@nestjs/common'
-import { CreateGameDto } from '@shifumi/dtos'
+import { CreateGameDto, GameDto } from '@shifumi/dtos'
 import { Game } from '../../entities/game.entity.js'
 import { Player } from '../../entities/player.entity.js'
 
@@ -11,9 +11,9 @@ export class GameService {
   async create(createGameDto: CreateGameDto) {
     return await this.em.transactional(async (em) => {
       const { playerTwoId } = createGameDto
-      const Computer = 1;
-      const playerOne = await em.findOneOrFail(Player, { id: Computer });
-      const playerTwo = await em.findOneOrFail(Player, { id: playerTwoId });
+      const Computer = 1
+      const playerOne = await em.findOneOrFail(Player, { id: Computer })
+      const playerTwo = await em.findOneOrFail(Player, { id: playerTwoId })
 
       const game = em.create(Game, {
         playerOne,
@@ -24,5 +24,10 @@ export class GameService {
       await em.persistAndFlush(game)
       return game
     })
+  }
+
+  async getOne(id: number): Promise<GameDto> {
+    const game = await this.em.findOneOrFail(Game, { id })
+    return game
   }
 }

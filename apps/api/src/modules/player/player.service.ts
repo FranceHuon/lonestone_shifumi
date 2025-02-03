@@ -23,9 +23,8 @@ export class PlayerService {
     })
   }
 
-  async getOne(name: string)  : Promise<PlayerDto> {
+  async getOne(name: string): Promise<PlayerDto> {
     const player = await this.em.findOneOrFail(Player, { name })
     return player
   }
-
 }

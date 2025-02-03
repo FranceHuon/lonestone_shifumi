@@ -4,6 +4,7 @@ import { Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HumanAvatar, RobotAvatar } from '../../assets/Avatars'
+import { createRound, fetchOneGame } from '../../services/api'
 import { choices } from '../../utils/choices'
 import { getPoints } from '../../utils/getPoints'
 import GameTitle from '../ui/GameTitle'
@@ -39,6 +40,7 @@ function AppLayout() {
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
   const [isTimerActive, setIsTimerActive] = useState(false)
+  const [gameId, setGameId] = useState(0)
   const [playerName, setPlayerName] = useState(() => {
     return localStorage.getItem('playerName') || ''
   })
@@ -46,6 +48,19 @@ function AppLayout() {
   useEffect(() => {
     localStorage.setItem('playerName', playerName)
   }, [playerName])
+
+  const fetchGameId = async () => {
+    try {
+      const game = await fetchOneGame(1)
+      setGameId(game.id)
+      console.warn(game)
+    }
+    catch (error) {
+      console.error('Erreur lors de la récupération de la partie:', error)
+    }
+  }
+  fetchGameId()
+
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
     const randomIndex = Math.floor(Math.random() * values.length)
@@ -53,12 +68,32 @@ function AppLayout() {
     return randomComputerChoice as Choice
   }
 
-  const handleChoice = (choice: Choice) => {
+  const handleChoice = async (userChoice: Choice, gameId: number) => {
+    if (gameId === null) {
+      console.error('gameId est null, impossible de créer un round')
+      return
+    }
+
+    const computerChoice = getRandomChoice()
+
+    const newRound = {
+      userChoice,
+      computerChoice,
+    }
+
+    try {
+      await createRound(gameId, newRound)
+      console.warn('Round enregistré')
+    }
+
+    catch (error) {
+      console.error('Erreur:', error)
+    }
     setGamePlay([
       ...gamePlay,
       {
-        userChoice: choice,
-        computerChoice: getRandomChoice(),
+        userChoice,
+        computerChoice,
       },
     ])
     setIsTimerActive(false)
@@ -126,8 +161,9 @@ function AppLayout() {
 
       {isStarted && !winner && (
         <Buttons
-          handleUserChoice={(choice) => {
-            handleChoice(choice)
+          gameId={gameId}
+          handleUserChoice={(choice, gameId) => {
+            handleChoice(choice, gameId)
           }}
         />
       )}

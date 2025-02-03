@@ -10,7 +10,9 @@ import { RoundModule } from './modules/round/round.module.js'
 @Module({
   imports: [
     MikroOrmModule.forRoot(ormConfig),
-    GameModule, PlayerModule, RoundModule
+    GameModule,
+    PlayerModule,
+    RoundModule,
   ],
   controllers: [AppController],
   providers: [AppService],

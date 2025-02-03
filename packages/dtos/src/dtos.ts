@@ -1,7 +1,7 @@
 export interface GameDto {
   id: number
   createdAt: Date
-  updatedAt: Date
+  updatedAt: Date | null
 }
 
 export interface CreateGameDto {
@@ -20,13 +20,13 @@ export interface CreatePlayerDto {
 export interface RoundDto {
   id: number
   gameId: number
-  player1Choice: string
-  player2Choice: string
+  computerChoice: string
+  userChoice: string
   createdAt: Date
   updatedAt: Date | null
 }
 
 export interface CreateRoundDto {
-  player1Choice: string
-  player2Choice: string
+  computerChoice: string
+  userChoice: string
 }

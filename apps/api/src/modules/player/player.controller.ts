@@ -15,6 +15,6 @@ export class PlayerController {
   @Get()
   async get(@Query('name') name: string) {
     const player = await this.playerService.getOne(name)
-    return player 
+    return player
   }
 }

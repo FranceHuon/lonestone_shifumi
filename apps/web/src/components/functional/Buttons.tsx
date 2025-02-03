@@ -4,29 +4,38 @@ import { Choice } from '../../utils/enums'
 import BasicButton from '../ui/BasicButton'
 
 interface ButtonsProps {
-  handleUserChoice: (choice: Choice) => void
+  gameId: number
+  handleUserChoice: (choice: Choice, gameId: number) => void
 }
 
-function Buttons({ handleUserChoice }: ButtonsProps) {
+function Buttons({ gameId, handleUserChoice }: ButtonsProps) {
+  const handleChoice = async (choice: Choice) => {
+    try {
+      await handleUserChoice(choice, gameId)
+    }
+    catch (error) {
+      console.error('Erreur lors de la création de la round en base de données :', error)
+    }
+  }
   return (
     <Box width="full" display="flex" justifyContent="center">
       <BasicButton
         onClick={() => {
-          handleUserChoice(Choice.STONE)
+          handleChoice(Choice.STONE)
         }}
         icon={<BlueStoneIllu />}
         buttonTitle="Pierre !"
       />
       <BasicButton
         onClick={() => {
-          handleUserChoice(Choice.LEAF)
+          handleChoice(Choice.LEAF)
         }}
         icon={<BlueLeafIllu />}
         buttonTitle="Feuille !"
       />
       <BasicButton
         onClick={() => {
-          handleUserChoice(Choice.SCISSORS)
+          handleChoice(Choice.SCISSORS)
         }}
         icon={<BlueScissorsIllu />}
         buttonTitle="Ciseaux !"
