@@ -13,7 +13,7 @@ function StartGameBis({ isStarted }: StartGameBisProps) {
         playerTwoId: 2,
       }
       const createdGame = await createGame(newGame)
-      console.warn('Jeu créé :', createdGame) // Vérifie la réponse dans la console
+      console.warn('Jeu créé :', createdGame)
     }
     catch (error) {
       console.error('Erreur lors de la création du jeu :', error)

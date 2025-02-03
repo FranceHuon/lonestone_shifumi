@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable } from '@nestjs/common'
-import { CreatePlayerDto } from '@shifumi/dtos'
+import { CreatePlayerDto, PlayerDto } from '@shifumi/dtos'
 import { Player } from '../../entities/player.entity.js'
 
 @Injectable()
@@ -19,8 +19,13 @@ export class PlayerService {
         })
         await em.persistAndFlush(player)
       }
-
       return player
     })
   }
+
+  async getOne(name: string)  : Promise<PlayerDto> {
+    const player = await this.em.findOneOrFail(Player, { name })
+    return player
+  }
+
 }

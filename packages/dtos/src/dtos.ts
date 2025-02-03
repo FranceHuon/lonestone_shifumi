@@ -10,7 +10,7 @@ export interface CreateGameDto {
 }
 
 export interface PlayerDto {
-  playerName: string
+  name: string
 }
 
 export interface CreatePlayerDto {
