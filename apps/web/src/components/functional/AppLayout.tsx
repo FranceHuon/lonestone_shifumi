@@ -15,7 +15,6 @@ import PlayerInput from './PlayerInput'
 import Points from './Points'
 import PointsSection from './PointsSection'
 import StartGame from './StartGame'
-import StartGameBis from './StartGameBis'
 
 export type PlayersChoices = {
   userChoice: Choice
@@ -124,7 +123,6 @@ function AppLayout() {
         }}
         isStarted={isStarted}
       />
-      <StartGameBis isStarted={isStarted} />
 
       {isStarted && !winner && (
         <Buttons
