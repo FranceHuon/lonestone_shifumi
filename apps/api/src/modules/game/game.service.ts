@@ -2,6 +2,7 @@ import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable } from '@nestjs/common'
 import { CreateGameDto } from '@shifumi/dtos'
 import { Game } from '../../entities/game.entity.js'
+import { Player } from '../../entities/player.entity.js'
 
 @Injectable()
 export class GameService {
@@ -11,9 +12,12 @@ export class GameService {
     return await this.em.transactional(async (em) => {
       const { playerOneId, playerTwoId } = createGameDto
 
+      const playerOne = await em.findOneOrFail(Player, { id: playerOneId });
+      const playerTwo = await em.findOneOrFail(Player, { id: playerTwoId });
+
       const game = em.create(Game, {
-        playerOneId,
-        playerTwoId,
+        playerOne,
+        playerTwo,
         createdAt: new Date(),
         updatedAt: null,
       })
@@ -21,8 +25,4 @@ export class GameService {
       return game
     })
   }
-
-  // findAll(): Game[] {
-  //   return this.game
-  // }
 }
