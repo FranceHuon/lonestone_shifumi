@@ -10,9 +10,9 @@ export class GameService {
 
   async create(createGameDto: CreateGameDto) {
     return await this.em.transactional(async (em) => {
-      const { playerOneId, playerTwoId } = createGameDto
-
-      const playerOne = await em.findOneOrFail(Player, { id: playerOneId });
+      const { playerTwoId } = createGameDto
+      const Computer = 1;
+      const playerOne = await em.findOneOrFail(Player, { id: Computer });
       const playerTwo = await em.findOneOrFail(Player, { id: playerTwoId });
 
       const game = em.create(Game, {
