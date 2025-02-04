@@ -22,7 +22,7 @@ export class GameService {
         updatedAt: null,
       })
       await em.persistAndFlush(game)
-      return game
+      return { id: game.id }
     })
   }
 

@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ShifumiGameIdImport } from './routes/shifumi.$gameId'
 
 // Create Virtual Routes
 
@@ -33,6 +34,12 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
+const ShifumiGameIdRoute = ShifumiGameIdImport.update({
+  id: '/$gameId',
+  path: '/$gameId',
+  getParentRoute: () => ShifumiLazyRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -51,44 +58,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShifumiLazyImport
       parentRoute: typeof rootRoute
     }
+    '/shifumi/$gameId': {
+      id: '/shifumi/$gameId'
+      path: '/$gameId'
+      fullPath: '/shifumi/$gameId'
+      preLoaderRoute: typeof ShifumiGameIdImport
+      parentRoute: typeof ShifumiLazyImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface ShifumiLazyRouteChildren {
+  ShifumiGameIdRoute: typeof ShifumiGameIdRoute
+}
+
+const ShifumiLazyRouteChildren: ShifumiLazyRouteChildren = {
+  ShifumiGameIdRoute: ShifumiGameIdRoute,
+}
+
+const ShifumiLazyRouteWithChildren = ShifumiLazyRoute._addFileChildren(
+  ShifumiLazyRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/shifumi': typeof ShifumiLazyRoute
+  '/shifumi': typeof ShifumiLazyRouteWithChildren
+  '/shifumi/$gameId': typeof ShifumiGameIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/shifumi': typeof ShifumiLazyRoute
+  '/shifumi': typeof ShifumiLazyRouteWithChildren
+  '/shifumi/$gameId': typeof ShifumiGameIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/shifumi': typeof ShifumiLazyRoute
+  '/shifumi': typeof ShifumiLazyRouteWithChildren
+  '/shifumi/$gameId': typeof ShifumiGameIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/shifumi'
+  fullPaths: '/' | '/shifumi' | '/shifumi/$gameId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/shifumi'
-  id: '__root__' | '/' | '/shifumi'
+  to: '/' | '/shifumi' | '/shifumi/$gameId'
+  id: '__root__' | '/' | '/shifumi' | '/shifumi/$gameId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  ShifumiLazyRoute: typeof ShifumiLazyRoute
+  ShifumiLazyRoute: typeof ShifumiLazyRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  ShifumiLazyRoute: ShifumiLazyRoute,
+  ShifumiLazyRoute: ShifumiLazyRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -109,7 +138,14 @@ export const routeTree = rootRoute
       "filePath": "index.lazy.tsx"
     },
     "/shifumi": {
-      "filePath": "shifumi.lazy.tsx"
+      "filePath": "shifumi.lazy.tsx",
+      "children": [
+        "/shifumi/$gameId"
+      ]
+    },
+    "/shifumi/$gameId": {
+      "filePath": "shifumi.$gameId.tsx",
+      "parent": "/shifumi"
     }
   }
 }

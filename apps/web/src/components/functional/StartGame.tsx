@@ -1,4 +1,5 @@
 import type { CreateGameDto } from '@shifumi/dtos'
+import { useNavigate } from '@tanstack/react-router'
 import { createGame } from '../../services/api'
 import BasicButton from '../ui/BasicButton'
 
@@ -8,6 +9,7 @@ interface StartGameProps {
   buttonTitle: string
 }
 function StartGame({ onClick, isStarted, buttonTitle }: StartGameProps) {
+  const navigate = useNavigate()
   const handleStartGame = async () => {
     try {
       const newGame: CreateGameDto = {
@@ -16,6 +18,7 @@ function StartGame({ onClick, isStarted, buttonTitle }: StartGameProps) {
       }
       const createdGame = await createGame(newGame)
       console.warn('Jeu créé :', createdGame)
+      navigate({ to: `/shifumi` })
       onClick()
     }
     catch (error) {
