@@ -1,5 +1,6 @@
 'use client'
-import type { PlayersChoices } from './AppLayout'
+
+import type { PlayersChoices } from '../../routes/shifumi.lazy'
 import { Box, Flex, Heading } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { Choice } from '../../utils/enums'

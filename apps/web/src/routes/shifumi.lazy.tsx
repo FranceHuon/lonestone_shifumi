@@ -160,6 +160,7 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
             setGamePlay([])
             setIsTimerActive(true)
           }}
+          playerName={playerName}
         />
       )}
     </Flex>

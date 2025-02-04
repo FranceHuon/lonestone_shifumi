@@ -1,4 +1,4 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '../../routes/shifumi.lazy'
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import GameHistoric from './GameHistoric'

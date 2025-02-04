@@ -1,4 +1,4 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '../../routes/shifumi.lazy'
 import { Box, Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'

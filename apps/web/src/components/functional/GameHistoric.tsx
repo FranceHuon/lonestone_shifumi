@@ -1,4 +1,4 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '../../routes/shifumi.lazy'
 import { Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { getRoundResult } from '../../utils/getResult'

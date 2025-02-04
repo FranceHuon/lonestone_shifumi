@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-
 import { LeafIcon, ScissorsIcon, StoneIcon } from '../../assets/Icons'
 import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'

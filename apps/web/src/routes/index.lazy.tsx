@@ -41,6 +41,7 @@ function Welcome() {
           // setIsTimerActive(true)
         }}
         isStarted={isStarted}
+        playerName={playerName}
       />
     </Flex>
   )

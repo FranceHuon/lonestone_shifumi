@@ -2,6 +2,8 @@ export interface GameDto {
   id: number
   createdAt: Date
   updatedAt: Date | null
+  playerOne: number
+  playerTwo: number
 }
 
 export interface CreateGameDto {
@@ -10,6 +12,7 @@ export interface CreateGameDto {
 }
 
 export interface PlayerDto {
+  id: number
   name: string
 }
 
