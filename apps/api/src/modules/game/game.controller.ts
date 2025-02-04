@@ -7,7 +7,7 @@ export class GameController {
   constructor(private gameService: GameService) {}
 
   @Post()
-  async create(@Body() createGameDto: CreateGameDto) {
+  async create(@Body() createGameDto: CreateGameDto): Promise<Pick<GameDto, 'id' | 'playerTwo'>> {
     const newGame = await this.gameService.create(createGameDto)
     return newGame
   }
@@ -23,3 +23,6 @@ export class GameController {
   //   return this.gameService.findAll()
   // }
 }
+
+
+

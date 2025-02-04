@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common'
-import { CreatePlayerDto } from '@shifumi/dtos'
+import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common'
+import { CreatePlayerDto, PlayerDto } from '@shifumi/dtos'
 import { PlayerService } from './player.service.js'
 
 @Controller('players')
@@ -12,9 +12,14 @@ export class PlayerController {
     return this.playerService.create(createPlayerDto)
   }
 
-  @Get()
-  async get(@Query('name') name: string) {
-    const player = await this.playerService.getOne(name)
-    return player
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<PlayerDto> {
+    return await this.playerService.findOne(id)
+  
+  }
+
+  @Get(':name')
+  async findOneByName(@Param('name') name: string): Promise<PlayerDto> {
+    return await this.playerService.getOneByName(name)
   }
 }
