@@ -1,41 +1,32 @@
 import { Box } from '@chakra-ui/react'
 import { BlueLeafIllu, BlueScissorsIllu, BlueStoneIllu } from '../../assets/BlueIllus'
 import { Choice } from '../../utils/enums'
-import BasicButton from '../ui/BasicButton'
+import BasicButton from '../ui/Button'
 
 interface ButtonsProps {
-  gameId: number
-  handleUserChoice: (choice: Choice, gameId: number) => void
+  handleUserChoice: (choice: Choice) => void
 }
 
-function Buttons({ gameId, handleUserChoice }: ButtonsProps) {
-  const handleChoice = async (choice: Choice) => {
-    try {
-      await handleUserChoice(choice, gameId)
-    }
-    catch (error) {
-      console.error('Erreur lors de la création de la round en base de données :', error)
-    }
-  }
+function Buttons({ handleUserChoice }: ButtonsProps) {
   return (
     <Box width="full" display="flex" justifyContent="center">
       <BasicButton
         onClick={() => {
-          handleChoice(Choice.STONE)
+          handleUserChoice(Choice.STONE)
         }}
         icon={<BlueStoneIllu />}
         buttonTitle="Pierre !"
       />
       <BasicButton
         onClick={() => {
-          handleChoice(Choice.LEAF)
+          handleUserChoice(Choice.LEAF)
         }}
         icon={<BlueLeafIllu />}
         buttonTitle="Feuille !"
       />
       <BasicButton
         onClick={() => {
-          handleChoice(Choice.SCISSORS)
+          handleUserChoice(Choice.SCISSORS)
         }}
         icon={<BlueScissorsIllu />}
         buttonTitle="Ciseaux !"

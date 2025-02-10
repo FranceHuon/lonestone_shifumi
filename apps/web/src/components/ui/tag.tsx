@@ -1,39 +1,19 @@
-import { Tag as ChakraTag } from '@chakra-ui/react'
-import * as React from 'react'
+import { Flex } from '@chakra-ui/react'
 
-export interface TagProps extends ChakraTag.RootProps {
-  startElement?: React.ReactNode
-  endElement?: React.ReactNode
-  onClose?: VoidFunction
-  closable?: boolean
+function Tag() {
+  return (
+    <Flex
+      flexDirection="row"
+      margin={2}
+      padding={3}
+      backgroundColor="color.navyBlue"
+      width="100%"
+      height={50}
+      justifyContent="space-between"
+      {...rest}
+    >
+      {children}
+    </Flex>
+  )
 }
-
-export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
-  (props, ref) => {
-    const {
-      startElement,
-      endElement,
-      onClose,
-      closable = !!onClose,
-      children,
-      ...rest
-    } = props
-
-    return (
-      <ChakraTag.Root ref={ref} {...rest}>
-        {startElement && (
-          <ChakraTag.StartElement>{startElement}</ChakraTag.StartElement>
-        )}
-        <ChakraTag.Label>{children}</ChakraTag.Label>
-        {endElement && (
-          <ChakraTag.EndElement>{endElement}</ChakraTag.EndElement>
-        )}
-        {closable && (
-          <ChakraTag.EndElement>
-            <ChakraTag.CloseTrigger onClick={onClose} />
-          </ChakraTag.EndElement>
-        )}
-      </ChakraTag.Root>
-    )
-  },
-)
+export default Tag

@@ -1,5 +1,5 @@
 import type { CreatePlayerDto } from '@shifumi/dtos'
-import { createPlayer, fetchOnePlayer } from '../services/api'
+import { createPlayer, fetchOnePlayerByName } from '../services/api'
 
 export interface usePlayerProps {
   playerName: string
@@ -12,7 +12,7 @@ function usePlayer({ playerName, setPlayerName }: usePlayerProps) {
       return
 
     try {
-      const existingPlayer = await fetchOnePlayer(playerName)
+      const existingPlayer = await fetchOnePlayerByName(playerName)
       if (existingPlayer) {
         return existingPlayer
       }

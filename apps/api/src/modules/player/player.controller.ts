@@ -1,25 +1,22 @@
-import { Body, Controller, Get, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common'
-import { CreatePlayerDto, PlayerDto } from '@shifumi/dtos'
+import { Body, Controller, Get, Param, Post} from '@nestjs/common'
 import { PlayerService } from './player.service.js'
+import { Player } from '../../entities/player.entity.js'
 
 @Controller('players')
 export class PlayerController {
   constructor(private playerService: PlayerService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe({ transform: true }))
-  async create(@Body() createPlayerDto: CreatePlayerDto) {
-    return this.playerService.create(createPlayerDto)
+  async create(@Body('name') name:string): Promise<Player> {
+    return this.playerService.create(name)
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<PlayerDto> {
-    return await this.playerService.findOne(id)
-  
+  async findById(@Param('id') id:number): Promise<Player> {
+    return this.playerService.findById(id)
   }
-
-  @Get(':name')
-  async findOneByName(@Param('name') name: string): Promise<PlayerDto> {
-    return await this.playerService.getOneByName(name)
+  @Get('name/:name')
+  async findByName(@Param('name') name:string): Promise<Player> {
+    return this.playerService.findByName(name)
   }
 }

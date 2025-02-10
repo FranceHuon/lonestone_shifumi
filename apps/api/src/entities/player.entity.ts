@@ -7,7 +7,4 @@ export class Player {
 
   @Property()
   name!: string
-
-  @Property({ nullable: true })
-  avatar?: Buffer | null
 }

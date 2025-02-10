@@ -9,10 +9,9 @@ import GameLayout from '../components/functional/GameLayout'
 import Points from '../components/functional/Points'
 import PointsSection from '../components/functional/PointsSection'
 import StartGame from '../components/functional/StartGame'
-import GameTitle from '../components/ui/GameTitle'
+import Layout from '../components/ui/Layout'
 import PlayerName from '../components/ui/PlayerName'
 import PlayerSection from '../components/ui/PlayerSection'
-import { createRound, fetchOneGame } from '../services/api'
 import { choices } from '../utils/choices'
 import { getPoints } from '../utils/getPoints'
 
@@ -46,20 +45,7 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
   const { t } = useTranslation('common')
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
-  const [isTimerActive, setIsTimerActive] = useState(false)
-  const [gameId, setGameId] = useState(0)
-
-  const fetchGameId = async () => {
-    try {
-      const game = await fetchOneGame(1)
-      setGameId(game.id)
-      console.warn(game)
-    }
-    catch (error) {
-      console.error('Erreur lors de la récupération de la partie:', error)
-    }
-  }
-  fetchGameId()
+  const [isTimerActive, setIsTimerActive] = useState(true)
 
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
@@ -68,27 +54,9 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
     return randomComputerChoice as Choice
   }
 
-  const handleChoice = async (userChoice: Choice, gameId: number) => {
-    if (gameId === null) {
-      console.error('gameId est null, impossible de créer un round')
-      return
-    }
-
+  const handleChoice = async (userChoice: Choice) => {
     const computerChoice = getRandomChoice()
 
-    const newRound = {
-      userChoice,
-      computerChoice,
-    }
-
-    try {
-      await createRound(gameId, newRound)
-      console.warn('Round enregistré')
-    }
-
-    catch (error) {
-      console.error('Erreur:', error)
-    }
     setGamePlay([
       ...gamePlay,
       {
@@ -108,17 +76,7 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
   const winner = handleWinner(points.userPoints, points.computerPoints)
   return (
 
-    <Flex
-      gap={8}
-      justifyContent="center"
-      flexDirection="column"
-      alignItems="center"
-      width="100%"
-      minHeight="100vh"
-      backgroundColor="color.darkBlue"
-    >
-      <GameTitle gameTitle="Shifumi !"></GameTitle>
-
+    <Layout>
       <Flex flexDirection="column" justifyContent="center" alignItems="center" width={710}>
         <PointsSection>
           <PlayerSection playerAvatar={<HumanAvatar />}>
@@ -147,9 +105,8 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
 
       {!winner && (
         <Buttons
-          gameId={gameId}
-          handleUserChoice={(choice, gameId) => {
-            handleChoice(choice, gameId)
+          handleUserChoice={(choice) => {
+            handleChoice(choice)
           }}
         />
       )}
@@ -160,9 +117,8 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
             setGamePlay([])
             setIsTimerActive(true)
           }}
-          playerName={playerName}
         />
       )}
-    </Flex>
+    </Layout>
   )
 }

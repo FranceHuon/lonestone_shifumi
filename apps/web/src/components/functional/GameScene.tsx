@@ -11,7 +11,6 @@ import ResultScreen from './ResultScreen'
 import Timer from './Timer'
 
 interface GameSceneProps {
-  isStarted: boolean
   gamePlay: PlayersChoices
   winner: 'user' | 'computer' | null
   timeLeft: number
@@ -22,7 +21,6 @@ interface GameSceneProps {
 }
 
 function GameScene({
-  isStarted,
   gamePlay,
   winner,
   setGamePlay,
@@ -54,7 +52,7 @@ function GameScene({
       </Box>
 
       <Flex width="full" flexGrow={1}>
-        {isStarted && isTimerActive && !winner && (
+        {isTimerActive && !winner && (
           <Timer
             setGamePlay={setGamePlay}
             isTimerActive={isTimerActive}
