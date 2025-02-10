@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PlayerInput from '../components/functional/PlayerInput'
@@ -15,6 +15,7 @@ function Welcome() {
   const [playerName, setPlayerName] = useState(() => {
     return localStorage.getItem('playerName') || ''
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem('playerName', playerName)
@@ -28,6 +29,9 @@ function Welcome() {
         buttonTitle={t('start')}
         onClick={() => {
           setIsStarted(true)
+          navigate({
+            to: '/shifumi',
+          })
         }}
         isStarted={isStarted}
       />

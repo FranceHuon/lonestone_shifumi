@@ -37,11 +37,10 @@ function handleWinner(userPoints: number, computerPoints: number) {
 }
 
 export interface AppLayoutProps {
-  isStarted: boolean
   playerName: string
 }
 
-function AppLayout({ isStarted, playerName }: AppLayoutProps) {
+function AppLayout({ playerName }: AppLayoutProps) {
   const { t } = useTranslation('common')
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
@@ -92,7 +91,6 @@ function AppLayout({ isStarted, playerName }: AppLayoutProps) {
           </PlayerSection>
         </PointsSection>
         <GameLayout
-          isStarted={isStarted}
           gamePlay={gamePlay}
           winner={winner}
           setGamePlay={setGamePlay}

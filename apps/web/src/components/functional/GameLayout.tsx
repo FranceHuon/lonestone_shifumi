@@ -6,7 +6,6 @@ import GameRules from './GameRules'
 import GameScene from './GameScene'
 
 export interface GameLayoutProps {
-  isStarted: boolean
   gamePlay: PlayersChoices
   winner: 'user' | 'computer' | null
   setGamePlay: React.Dispatch<React.SetStateAction<PlayersChoices>>
@@ -16,7 +15,6 @@ export interface GameLayoutProps {
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>
 }
 function GameLayout({
-  isStarted,
   gamePlay,
   winner,
   setGamePlay,
@@ -33,7 +31,6 @@ function GameLayout({
     <Flex gap={8} justifyContent="center">
       <GameRules />
       <GameScene
-        isStarted={isStarted}
         gamePlay={gamePlay}
         winner={winner}
         setGamePlay={setGamePlay}
