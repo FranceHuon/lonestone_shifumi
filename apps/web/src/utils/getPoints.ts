@@ -1,4 +1,4 @@
-import type { PlayersChoices } from '../routes/shifumi.lazy'
+import type { PlayersChoices } from '../routes/shifumi.$gameId'
 import { Choice } from './enums'
 
 export function getPoints(gamePlay: PlayersChoices) {

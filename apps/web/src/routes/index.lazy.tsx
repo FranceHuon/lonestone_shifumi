@@ -11,7 +11,6 @@ export const Route = createLazyFileRoute('/')({
 
 function Welcome() {
   const { t } = useTranslation('common')
-  const [isStarted, setIsStarted] = useState(false)
   const [playerName, setPlayerName] = useState(() => {
     return localStorage.getItem('playerName') || ''
   })
@@ -22,18 +21,17 @@ function Welcome() {
   }, [playerName])
   return (
     <Layout>
-      {!isStarted && (
-        <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
-      )}
+      <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
       <StartGame
         buttonTitle={t('start')}
         onClick={() => {
-          setIsStarted(true)
           navigate({
-            to: '/shifumi',
+            to: '/shifumi/$gameId',
+            params: {
+              gameId: '42',
+            },
           })
         }}
-        isStarted={isStarted}
       />
     </Layout>
   )

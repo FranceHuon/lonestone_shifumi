@@ -1,4 +1,4 @@
-import type { PlayersChoices } from '../../routes/shifumi.lazy'
+import type { PlayersChoices } from '../../routes/shifumi.$gameId'
 import { Flex } from '@chakra-ui/react'
 import React from 'react'
 import GameHistoric from './GameHistoric'
