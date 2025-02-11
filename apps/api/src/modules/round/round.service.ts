@@ -7,7 +7,7 @@ import { Round } from '../../entities/round.entity.js'
 export class RoundService {
   constructor(private readonly em: EntityManager) {}
 
-  async createRound(gameId: number, player1Choice: string, player2Choice: string): Promise<Round> {
+  async create(gameId: number, player1Choice: string, player2Choice: string): Promise<Round> {
     return await this.em.transactional(async (em) => {
       const game = await em.findOneOrFail(Game, { id: gameId })
 
@@ -16,11 +16,19 @@ export class RoundService {
         player1Choice,
         player2Choice,
         createdAt: new Date(),
-        updatedAt: null,
+        updatedAt: new Date(),
       })
 
       await em.persistAndFlush(round)
       return round
     })
+  }
+
+  async getRoundsByGame(gameId: number): Promise<Round[]> {
+    return await this.em.find(Round, { game: gameId }, { populate: ['game'] });
+  }
+  
+  async getOne(id: number): Promise<Round | null> {
+    return await this.em.findOne(Round, { id }, { populate: ['game'] });
   }
 }

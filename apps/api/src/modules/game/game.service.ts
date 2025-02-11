@@ -25,6 +25,9 @@ export class GameService {
 
   await this.em.persistAndFlush(game)
   return game
+  }
 
+  async getOne(id: number): Promise<Game | null> {
+    return await this.em.findOne(Game, { id }, { populate: ['playerOne', 'playerTwo'] })
   }
 }

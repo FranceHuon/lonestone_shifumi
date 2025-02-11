@@ -1,27 +1,22 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
-import { CreateGameDto, GameDto } from '@shifumi/dtos'
 import { GameService } from './game.service.js'
+import { Game } from '../../entities/game.entity.js'
 
 @Controller('games')
 export class GameController {
   constructor(private gameService: GameService) {}
 
   @Post()
-  async create(@Body() createGameDto: CreateGameDto): Promise<Pick<GameDto, 'id' | 'playerTwo'>> {
-    const newGame = await this.gameService.create(createGameDto)
+  async create(@Body() body: { playerTwoId: number }): Promise<Game> {
+    const newGame = await this.gameService.create(body.playerTwoId)
     return newGame
   }
 
   @Get(':id')
-  findOne(@Param() params: any): string {
-    console.warn(params.id)
-    return 'This action returns a #${params.id} game'
+  async findOne(@Param('id') id: number): Promise<Game | null> {
+    return this.gameService.getOne(id)
   }
 
-  // @Get()
-  // async findAll() {
-  //   return this.gameService.findAll()
-  // }
 }
 
 
