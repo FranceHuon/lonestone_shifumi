@@ -1,13 +1,12 @@
 import type { TextProps } from '@chakra-ui/react'
+import type { PropsWithChildren } from 'react'
 import { Text } from '@chakra-ui/react'
 
-type PlayerNameProps = {
-  name: string
-} & TextProps
-function PlayerName({ name }: PlayerNameProps) {
+type PlayerNameProps = PropsWithChildren & TextProps
+function PlayerName({ children }: PlayerNameProps) {
   return (
     <Text color="color.lightBlue" fontWeight={900} fontSize={24}>
-      {name || 'Player'}
+      {children}
     </Text>
   )
 }

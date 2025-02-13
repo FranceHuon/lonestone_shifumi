@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import PlayerInput from '../components/functional/PlayerInput'
 import StartGame from '../components/functional/StartGame'
 import Layout from '../components/ui/Layout'
+import { createGame } from '../services/api'
 
 export const Route = createLazyFileRoute('/')({
   component: Welcome,
@@ -11,27 +12,36 @@ export const Route = createLazyFileRoute('/')({
 
 function Welcome() {
   const { t } = useTranslation('common')
-  const [playerName, setPlayerName] = useState(() => {
-    return localStorage.getItem('playerName') || ''
-  })
+  const [playerName, setPlayerName] = useState(localStorage.getItem('playerName') ?? '')
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem('playerName', playerName)
+    if (playerName) {
+      localStorage.setItem('playerName', playerName)
+    }
   }, [playerName])
+
+  const handleStartGame = async () => {
+    setIsLoading(true)
+    const newGame = await createGame({
+      playerTwoName: playerName,
+    })
+    navigate({
+      to: '/shifumi/$gameId',
+      params: {
+        gameId: newGame.id.toString(),
+      },
+    })
+    setIsLoading(false)
+  }
+
   return (
     <Layout>
       <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
       <StartGame
         buttonTitle={t('start')}
-        onClick={() => {
-          navigate({
-            to: '/shifumi/$gameId',
-            params: {
-              gameId: '42',
-            },
-          })
-        }}
+        onClick={handleStartGame}
       />
     </Layout>
   )

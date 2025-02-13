@@ -40,7 +40,7 @@ export interface AppLayoutProps {
   playerName: string
 }
 
-function AppLayout({ playerName }: AppLayoutProps) {
+function AppLayout() {
   const { gameId } = Route.useParams()
   console.warn('Game id is:', gameId)
 
@@ -48,6 +48,8 @@ function AppLayout({ playerName }: AppLayoutProps) {
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
   const [isTimerActive, setIsTimerActive] = useState(true)
+
+  const playerName = localStorage.getItem('playerName')
 
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
@@ -86,14 +88,16 @@ function AppLayout({ playerName }: AppLayoutProps) {
       >
         <PointsSection>
           <PlayerSection playerAvatar={<HumanAvatar />}>
-            <PlayerName name={playerName}></PlayerName>
+            <PlayerName>{playerName}</PlayerName>
             <Points score={points.userPoints} />
           </PlayerSection>
           <PlayerSection
             flexDirection="row-reverse"
             playerAvatar={<RobotAvatar />}
           >
-            <PlayerName name={t('computer')} textAlign="end"></PlayerName>
+            <PlayerName textAlign="end" alignSelf="end">
+              {t('computer')}
+            </PlayerName>
             <Points score={points.computerPoints} />
           </PlayerSection>
         </PointsSection>

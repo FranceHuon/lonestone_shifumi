@@ -7,24 +7,28 @@ import { Player } from '../../entities/player.entity.js'
 export class GameService {
   constructor(private readonly em: EntityManager) {}
 
-  async create(playerTwoId: number): Promise<Game> {
-    let playerOne = await this.em.findOne(Player, { id: 1 });
+  async create(playerTwoName: string): Promise<Game> {
+    let playerOne = await this.em.findOne(Player, { name: 'Computer' });
     if(!playerOne) {
-      playerOne = await this.em.create(Player, { id: 1, name: 'Computer' });
+      playerOne = await this.em.create(Player, { name: 'Computer' });
       await this.em.persistAndFlush(playerOne)
     }
 
-  const playerTwo = await this.em.findOneOrFail(Player, { id: playerTwoId })
+    let playerTwo = await this.em.findOne(Player, { name: playerTwoName });
+    if(!playerTwo) {
+      playerTwo = await this.em.create(Player, { name: playerTwoName });
+      await this.em.persistAndFlush(playerTwo)
+    }
 
-  const game = this.em.create(Game, {
-    createdAt: new Date(),
-    updatedAt: null,
-    playerOne,
-    playerTwo
-   })
+    const game = this.em.create(Game, {
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      playerOne,
+      playerTwo
+    })
 
-  await this.em.persistAndFlush(game)
-  return game
+    await this.em.persistAndFlush(game)
+    return game
   }
 
   async getOne(id: number): Promise<Game | null> {

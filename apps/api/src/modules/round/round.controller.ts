@@ -1,24 +1,20 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, NotFoundException, Post } from '@nestjs/common';
 import { RoundService } from './round.service.js';
+import { Round } from '../../entities/round.entity.js';
+import { GameService } from '../game/game.service.js';
 
 @Controller('rounds')
 export class RoundController {
-  constructor(private roundService: RoundService) {}
+  constructor(private roundService: RoundService, private gameService: GameService) {}
 
   @Post()
-  async createRound(
-    @Body() body: { gameId: number; player1Choice: string; player2Choice: string }
-  ) {
-    return await this.roundService.create(body.gameId, body.player1Choice, body.player2Choice);
-  }
+  async create(@Body() body: { gameId: number; player1Choice: string; player2Choice: string}): Promise<Round> {
+    const game = await this.gameService.getOne(body.gameId)
+    if (!game) {
+      throw new NotFoundException(`Game with ID ${body.gameId} not found`);
+    }
 
-  @Get(':gameId')
-  async getRoundsByGame(@Param('gameId') gameId: number) {
-    return await this.roundService.getRoundsByGame(gameId);
-  }
-
-  @Get('id/:id')
-  async getOneRound(@Param('id') id: number) {
-    return await this.roundService.getOne(id);
+    const newRound = await this.roundService.create(game, body.player1Choice, body.player2Choice);
+    return newRound
   }
 }

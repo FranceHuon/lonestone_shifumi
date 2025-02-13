@@ -6,11 +6,11 @@ export class Game {
   @PrimaryKey()
   id!: number
 
-  @Property({ type: 'date' })
-  createdAt!: Date
+  @Property({ onCreate: () => new Date() })
+	createdAt = new Date();
 
-  @Property({ type: 'date', nullable: true })
-  updatedAt!: Date | null
+	@Property({ onUpdate: () => new Date() })
+	updatedAt = new Date();
 
   @ManyToOne(() => Player)
   playerOne!: Player
