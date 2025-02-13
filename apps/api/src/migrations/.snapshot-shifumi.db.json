@@ -22,16 +22,6 @@
           "nullable": false,
           "length": null,
           "mappedType": "text"
-        },
-        "avatar": {
-          "name": "avatar",
-          "type": "text",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "length": null,
-          "mappedType": "text"
         }
       },
       "name": "player",
@@ -65,23 +55,23 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "date",
+          "type": "datetime",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "length": null,
-          "mappedType": "date"
+          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "date",
+          "type": "datetime",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "length": null,
-          "mappedType": "date"
+          "mappedType": "datetime"
         },
         "player_one_id": {
           "name": "player_one_id",
@@ -200,23 +190,23 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "date",
+          "type": "datetime",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
           "nullable": false,
           "length": null,
-          "mappedType": "date"
+          "mappedType": "datetime"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "date",
+          "type": "datetime",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "length": null,
-          "mappedType": "date"
+          "mappedType": "datetime"
         },
         "game_id": {
           "name": "game_id",

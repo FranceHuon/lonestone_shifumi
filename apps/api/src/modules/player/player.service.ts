@@ -1,6 +1,5 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { CreatePlayerDto, PlayerDto } from '@shifumi/dtos'
 import { Player } from '../../entities/player.entity.js'
 
 @Injectable()
