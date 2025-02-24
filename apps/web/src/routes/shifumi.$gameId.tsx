@@ -1,7 +1,8 @@
+import type { CreateRoundDto, GameDto } from '@shifumi/dtos'
 import type { Choice } from '../utils/enums'
 import { Flex } from '@chakra-ui/react'
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HumanAvatar, RobotAvatar } from '../assets/Avatars'
 import Buttons from '../components/functional/Buttons'
@@ -12,6 +13,7 @@ import StartGame from '../components/functional/StartGame'
 import Layout from '../components/ui/Layout'
 import PlayerName from '../components/ui/PlayerName'
 import PlayerSection from '../components/ui/PlayerSection'
+import { createGame, createRound, fetchOneGame } from '../services/api'
 import { choices } from '../utils/choices'
 import { getPoints } from '../utils/getPoints'
 
@@ -43,13 +45,31 @@ export interface AppLayoutProps {
 function AppLayout() {
   const { gameId } = Route.useParams()
   console.warn('Game id is:', gameId)
+  const gameIdAsNumber = Number(gameId)
 
   const { t } = useTranslation('common')
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
   const [timeLeft, setTimeLeft] = useState(4)
   const [isTimerActive, setIsTimerActive] = useState(true)
+  const [gameData, setGameData] = useState<GameDto | null>(null)
+  const navigate = useNavigate()
 
-  const playerName = localStorage.getItem('playerName')
+  useEffect(() => {
+    const fetchGame = async () => {
+      try {
+        const game = await fetchOneGame(gameIdAsNumber)
+        setGameData(game)
+      }
+      catch (error) {
+        console.error('Erreur lors de la récupération des données du jeu:', error)
+      }
+    }
+    if (gameIdAsNumber) {
+      fetchGame()
+    }
+  }, [gameIdAsNumber])
+
+  const playerName = gameData?.playerTwo
 
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
@@ -58,8 +78,24 @@ function AppLayout() {
     return randomComputerChoice as Choice
   }
 
+  const newRound = async (playerOneChoice: Choice, playerTwoChoice: Choice) => {
+    const roundData: CreateRoundDto = {
+      gameId: gameIdAsNumber,
+      playerOneChoice,
+      playerTwoChoice,
+    }
+
+    try {
+      await createRound(roundData)
+    }
+    catch (error) {
+      console.error (error)
+    }
+  }
+
   const handleChoice = async (userChoice: Choice) => {
     const computerChoice = getRandomChoice()
+    newRound(userChoice, computerChoice)
 
     setGamePlay([
       ...gamePlay,
@@ -78,6 +114,29 @@ function AppLayout() {
   const points = getPoints(gamePlay)
 
   const winner = handleWinner(points.userPoints, points.computerPoints)
+
+  async function handleStartAgain() {
+    setGamePlay([])
+    setIsTimerActive(true)
+    if (!playerName) {
+      throw new Error('Please enter your name!')
+    }
+
+    try {
+      const newGame = await createGame({ playerTwoName: playerName })
+      console.warn('New game:', newGame)
+      navigate({
+        to: '/shifumi/$gameId',
+        params: {
+          gameId: newGame.id.toString(),
+        },
+      })
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <Layout>
       <Flex
@@ -122,10 +181,7 @@ function AppLayout() {
       {winner && (
         <StartGame
           buttonTitle={t('startAgain')}
-          onClick={() => {
-            setGamePlay([])
-            setIsTimerActive(true)
-          }}
+          onClick={handleStartAgain}
         />
       )}
     </Layout>

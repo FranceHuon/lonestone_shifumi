@@ -1,8 +1,8 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable, NotFoundException } from '@nestjs/common'
+import { GameDto } from '@shifumi/dtos'
 import { Game } from '../../entities/game.entity.js'
 import { Player } from '../../entities/player.entity.js'
-import { GameDto } from '@shifumi/dtos';
 
 @Injectable()
 export class GameService {
@@ -10,15 +10,15 @@ export class GameService {
 
   async create(playerTwoName: string): Promise<GameDto> {
     // Pour le moment playerOne est toujours Computer
-    let playerOne = await this.em.findOne(Player, { name: 'Computer' });
-    if(!playerOne) {
-      playerOne = this.em.create(Player, { name: 'Computer' });
+    let playerOne = await this.em.findOne(Player, { name: 'Computer' })
+    if (!playerOne) {
+      playerOne = this.em.create(Player, { name: 'Computer' })
       await this.em.persistAndFlush(playerOne)
     }
 
-    let playerTwo = await this.em.findOne(Player, { name: playerTwoName });
+    let playerTwo = await this.em.findOne(Player, { name: playerTwoName })
     if (!playerTwo) {
-      playerTwo = this.em.create(Player, { name: playerTwoName });
+      playerTwo = this.em.create(Player, { name: playerTwoName })
       await this.em.persistAndFlush(playerTwo)
     }
 
@@ -26,7 +26,7 @@ export class GameService {
       createdAt: new Date(),
       updatedAt: new Date(),
       playerOne,
-      playerTwo
+      playerTwo,
     })
 
     await this.em.persistAndFlush(game)
@@ -34,7 +34,7 @@ export class GameService {
       id: game.id,
       playerOne: game.playerOne.name,
       playerTwo: game.playerTwo.name,
-      createdAt: game.createdAt
+      createdAt: game.createdAt,
     }
   }
 
@@ -42,13 +42,13 @@ export class GameService {
     // populate est utilisé pour charger les relations entre les entités
     const game = await this.em.findOne(Game, { id }, { populate: ['playerOne', 'playerTwo'] })
     if (!game) {
-      throw new NotFoundException(`Game with id ${id} not found`);
+      throw new NotFoundException(`Game with id ${id} not found`)
     }
     return {
       id: game.id,
       playerOne: game.playerOne.name,
       playerTwo: game.playerTwo.name,
-      createdAt: game.createdAt
+      createdAt: game.createdAt,
     }
   }
 }

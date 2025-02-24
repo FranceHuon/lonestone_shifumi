@@ -1,6 +1,6 @@
-import { Body, Controller, NotFoundException, Post } from '@nestjs/common';
-import { RoundService } from './round.service.js';
-import { CreateRoundDto, RoundDto } from '@shifumi/dtos';
+import { Body, Controller, Post } from '@nestjs/common'
+import { CreateRoundDto, RoundDto } from '@shifumi/dtos'
+import { RoundService } from './round.service.js'
 
 @Controller('rounds')
 export class RoundController {
@@ -10,5 +10,5 @@ export class RoundController {
   async create(@Body() createRoundDto: CreateRoundDto): Promise<RoundDto> {
     const newRound = await this.roundService.create(createRoundDto)
     return newRound
-    }
   }
+}

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
-import { GameService } from './game.service.js'
 import { GameDto } from '@shifumi/dtos'
+import { GameService } from './game.service.js'
 
 @Controller('games')
 export class GameController {
@@ -17,8 +17,4 @@ export class GameController {
     const game = await this.gameService.getOne(id)
     return game
   }
-
 }
-
-
-

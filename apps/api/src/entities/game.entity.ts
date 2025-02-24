@@ -7,10 +7,10 @@ export class Game {
   id!: number
 
   @Property({ onCreate: () => new Date() })
-	createdAt = new Date();
+  createdAt = new Date()
 
-	@Property({ onUpdate: () => new Date() })
-	updatedAt = new Date();
+  @Property({ onUpdate: () => new Date() })
+  updatedAt = new Date()
 
   @ManyToOne(() => Player)
   playerOne!: Player

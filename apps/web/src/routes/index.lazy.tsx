@@ -1,10 +1,10 @@
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PlayerInput from '../components/functional/PlayerInput'
 import StartGame from '../components/functional/StartGame'
 import Layout from '../components/ui/Layout'
-import { createGame } from '../services/api'
+import { createGame, createPlayer } from '../services/api'
 
 export const Route = createLazyFileRoute('/')({
   component: Welcome,
@@ -12,28 +12,30 @@ export const Route = createLazyFileRoute('/')({
 
 function Welcome() {
   const { t } = useTranslation('common')
-  const [playerName, setPlayerName] = useState(localStorage.getItem('playerName') ?? '')
+  const [playerName, setPlayerName] = useState('')
   const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    if (playerName) {
-      localStorage.setItem('playerName', playerName)
+  async function handleStartGame() {
+    if (!playerName) {
+      throw new Error('Please enter your name!')
     }
-  }, [playerName])
 
-  const handleStartGame = async () => {
-    setIsLoading(true)
-    const newGame = await createGame({
-      playerTwoName: playerName,
-    })
-    navigate({
-      to: '/shifumi/$gameId',
-      params: {
-        gameId: newGame.id.toString(),
-      },
-    })
-    setIsLoading(false)
+    try {
+      const player = await createPlayer(playerName)
+      console.warn('New player:', player)
+
+      const newGame = await createGame({ playerTwoName: player.name })
+      console.warn('New game:', newGame)
+      navigate({
+        to: '/shifumi/$gameId',
+        params: {
+          gameId: newGame.id.toString(),
+        },
+      })
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
 
   return (

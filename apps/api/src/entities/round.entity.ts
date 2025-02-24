@@ -13,12 +13,11 @@ export class Round {
   playerTwoChoice!: string
 
   @Property({ onCreate: () => new Date() })
-	createdAt = new Date();
+  createdAt = new Date()
 
-	@Property({ onUpdate: () => new Date() })
-	updatedAt = new Date();
+  @Property({ onUpdate: () => new Date() })
+  updatedAt = new Date()
 
   @ManyToOne(() => Game)
   game!: Game
 }
-
