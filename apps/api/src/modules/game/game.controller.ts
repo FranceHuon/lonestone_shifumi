@@ -14,7 +14,7 @@ export class GameController {
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<GameDto | null> {
-    const game = this.gameService.getOne(id)
+    const game = await this.gameService.getOne(id)
     return game
   }
 
