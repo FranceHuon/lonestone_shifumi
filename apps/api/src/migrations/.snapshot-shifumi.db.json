@@ -168,8 +168,8 @@
           "length": null,
           "mappedType": "integer"
         },
-        "player1choice": {
-          "name": "player1choice",
+        "player_one_choice": {
+          "name": "player_one_choice",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
@@ -178,8 +178,8 @@
           "length": null,
           "mappedType": "text"
         },
-        "player2choice": {
-          "name": "player2choice",
+        "player_two_choice": {
+          "name": "player_two_choice",
           "type": "text",
           "unsigned": false,
           "autoincrement": false,
