@@ -7,10 +7,10 @@ export class Round {
   id!: number
 
   @Property()
-  player1Choice!: string
+  playerOneChoice!: string
 
   @Property()
-  player2Choice!: string
+  playerTwoChoice!: string
 
   @Property({ onCreate: () => new Date() })
 	createdAt = new Date();
