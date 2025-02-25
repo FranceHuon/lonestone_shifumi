@@ -4,7 +4,10 @@ import { Game } from './game.entity.js'
 @Entity()
 export class Round {
   @PrimaryKey()
-  id!: number
+  roundNumber!: number
+
+  @ManyToOne(() => Game, { primary: true })
+  game!: Game
 
   @Property()
   playerOneChoice!: string
@@ -17,7 +20,4 @@ export class Round {
 
   @Property({ onUpdate: () => new Date() })
   updatedAt = new Date()
-
-  @ManyToOne(() => Game)
-  game!: Game
 }
