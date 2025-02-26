@@ -11,7 +11,7 @@ export interface PlayerDto {
 }
 
 export interface RoundDto {
-  id: number
+  roundNumber: number
   playerOneChoice: string
   playerTwoChoice: string
   createdAt: Date

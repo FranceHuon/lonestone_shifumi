@@ -15,7 +15,12 @@ export class RoundService {
     if (!game) {
       throw new Error('Game not found')
     }
+
+    const roundCount = await this.em.count(Round, { game })
+    const roundNumber = roundCount + 1
+
     const round = this.em.create(Round, {
+      roundNumber,
       playerOneChoice,
       playerTwoChoice,
       game,
@@ -25,11 +30,16 @@ export class RoundService {
 
     await this.em.persistAndFlush(round)
     return {
-      id: round.id,
+      roundNumber: round.roundNumber,
       playerOneChoice: round.playerOneChoice,
       playerTwoChoice: round.playerTwoChoice,
       createdAt: round.createdAt,
       updatedAt: round.updatedAt,
     }
+  }
+
+  async getAll(gameId: number): Promise<RoundDto[]> {
+    const rounds = await this.em.find(Round, { game: { id: gameId } })
+    return rounds
   }
 }
