@@ -13,6 +13,7 @@ export interface GameLayoutProps {
   isTimerActive: boolean
   setIsTimerActive: React.Dispatch<React.SetStateAction<boolean>>
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>
+  playerName: string | undefined
 }
 function GameLayout({
   gamePlay,
@@ -22,6 +23,7 @@ function GameLayout({
   isTimerActive,
   setIsTimerActive,
   setTimeLeft,
+  playerName,
 }: GameLayoutProps) {
   // const lastGamePlay = gamePlay[gamePlay.length - 1];
   // const userLastGamePlay = lastGamePlay?.userChoice;
@@ -38,6 +40,7 @@ function GameLayout({
         isTimerActive={isTimerActive}
         setIsTimerActive={setIsTimerActive}
         setTimeLeft={setTimeLeft}
+        playerName={playerName}
       >
       </GameScene>
 

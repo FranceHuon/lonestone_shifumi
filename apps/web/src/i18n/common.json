@@ -1,10 +1,11 @@
 {
   "title": "Shifumi !",
   "rules": "Règles du jeu",
-  "round": "Manche",
+  "round": "Manche ",
   "historic": "Historique des coups",
   "user": "Moi",
   "computer": "J-ordi",
   "start": "Commencer la partie",
-  "startAgain": "Recommencer la partie"
+  "startAgain": "Recommencer la partie",
+  "winner": "Le vainqueur est "
 }
