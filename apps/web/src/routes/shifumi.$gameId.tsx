@@ -1,4 +1,4 @@
-import type { CreateRoundDto, GameDto } from '@shifumi/dtos'
+import type { CreateRoundDto, GameDto, RoundDto } from '@shifumi/dtos'
 import type { Choice } from '../utils/enums'
 import { Flex } from '@chakra-ui/react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
@@ -13,7 +13,7 @@ import StartGame from '../components/functional/StartGame'
 import Layout from '../components/ui/Layout'
 import PlayerName from '../components/ui/PlayerName'
 import PlayerSection from '../components/ui/PlayerSection'
-import { createGame, createRound, fetchOneGame } from '../services/api'
+import { createGame, createRound, fetchAllRounds, fetchOneGame } from '../services/api'
 import { choices } from '../utils/choices'
 import { getPoints } from '../utils/getPoints'
 
@@ -58,6 +58,14 @@ function AppLayout() {
     const fetchGame = async () => {
       try {
         const game = await fetchOneGame(gameIdAsNumber)
+        const rounds = await fetchAllRounds(gameIdAsNumber)
+        const playersChoices = rounds.map((round) => {
+          return {
+            userChoice: round.playerTwoChoice as Choice,
+            computerChoice: round.playerOneChoice as Choice,
+          }
+        })
+        setGamePlay(playersChoices)
         setGameData(game)
       }
       catch (error) {
