@@ -1,4 +1,4 @@
-import type { CreateRoundDto, GameDto, RoundDto } from '@shifumi/dtos'
+import type { CreateRoundDto, GameDto } from '@shifumi/dtos'
 import type { Choice } from '../utils/enums'
 import { Flex } from '@chakra-ui/react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
@@ -39,12 +39,11 @@ function handleWinner(userPoints: number, computerPoints: number) {
 }
 
 export interface AppLayoutProps {
-  playerName: string
+  playerName: string | undefined
 }
 
 function AppLayout() {
   const { gameId } = Route.useParams()
-  console.warn('Game id is:', gameId)
   const gameIdAsNumber = Number(gameId)
 
   const { t } = useTranslation('common')
@@ -176,6 +175,7 @@ function AppLayout() {
           isTimerActive={isTimerActive}
           setIsTimerActive={setIsTimerActive}
           setTimeLeft={setTimeLeft}
+          playerName={playerName}
         />
       </Flex>
 

@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { choices } from '../../utils/choices'
 import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
-import EndGameDisplay from '../ui/EndGameDisplay'
 import SymbolCard from '../ui/SymbolCard'
+import WinnerScreen from '../ui/WinnerScreen'
 import ResultScreen from './ResultScreen'
 import Timer from './Timer'
 
@@ -18,6 +18,7 @@ interface GameSceneProps {
   isTimerActive: boolean
   setIsTimerActive: React.Dispatch<React.SetStateAction<boolean>>
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>
+  playerName: string | undefined
 }
 
 function GameScene({
@@ -28,6 +29,7 @@ function GameScene({
   isTimerActive,
   setIsTimerActive,
   setTimeLeft,
+  playerName,
 }: GameSceneProps) {
   const { t } = useTranslation('common')
   const lastGamePlay = gamePlay[gamePlay.length - 1]
@@ -46,7 +48,6 @@ function GameScene({
       <Box>
         <BoxHeading>
           {t('round')}
-          {' '}
           {roundNumber}
         </BoxHeading>
       </Box>
@@ -108,8 +109,7 @@ function GameScene({
             </Box>
           </Box>
         )}
-        {/* {winner && <WinnerDisplay winner={winner} />} */}
-        {winner && !isTimerActive && (<EndGameDisplay />)}
+        {winner && <WinnerScreen winner={winner} playerName={playerName} />}
       </Flex>
     </BoxLayout>
   )
