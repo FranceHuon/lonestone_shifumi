@@ -37,4 +37,9 @@ export class RoundService {
       updatedAt: round.updatedAt,
     }
   }
+
+  async getAll(gameId: number): Promise<RoundDto[]> {
+    const rounds = await this.em.find(Round, { game: { id: gameId } })
+    return rounds
+  }
 }
