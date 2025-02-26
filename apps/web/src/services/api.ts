@@ -27,3 +27,7 @@ export async function fetchOneGame(id: number): Promise<GameDto> {
 export async function createRound(createRoundDto: CreateRoundDto): Promise<RoundDto> {
   return await api.post('rounds', { json: createRoundDto }).json()
 }
+
+export async function fetchAllRounds(gameId: number): Promise<RoundDto[]> {
+  return await api.get('rounds', { searchParams: { gameId } }).json()
+}
