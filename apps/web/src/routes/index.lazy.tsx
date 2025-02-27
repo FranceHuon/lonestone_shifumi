@@ -2,7 +2,7 @@ import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PlayerInput from '../components/functional/PlayerInput'
-import StartGame from '../components/functional/StartGame'
+import BasicButton from '../components/ui/Button'
 import Layout from '../components/ui/Layout'
 import { createGame, createPlayer } from '../services/api'
 
@@ -41,7 +41,7 @@ function Welcome() {
   return (
     <Layout>
       <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
-      <StartGame
+      <BasicButton
         buttonTitle={t('start')}
         onClick={handleStartGame}
       />

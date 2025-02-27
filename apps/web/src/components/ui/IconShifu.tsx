@@ -12,8 +12,8 @@ function IconShifu({ icon, backgroundColor }: IconShifuProps) {
       alignItems="center"
       justifyContent="center"
       borderRadius={50}
-      width={30}
-      height={30}
+      width={35}
+      height={35}
       backgroundColor={backgroundColor}
     >
       {icon}

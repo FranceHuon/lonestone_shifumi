@@ -1,17 +1,16 @@
-import type { CreateRoundDto, GameDto } from '@shifumi/dtos'
-import type { Choice } from '../utils/enums'
-import { Flex } from '@chakra-ui/react'
+import type { Choice, CreateRoundDto, GameDto } from '@shifumi/dtos'
+import { Flex, Text } from '@chakra-ui/react'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HumanAvatar, RobotAvatar } from '../assets/Avatars'
 import Buttons from '../components/functional/Buttons'
-import GameLayout from '../components/functional/GameLayout'
+import GameHistoric from '../components/functional/GameHistoric'
+import GameRules from '../components/functional/GameRules'
+import GameScene from '../components/functional/GameScene'
 import Points from '../components/functional/Points'
-import PointsSection from '../components/functional/PointsSection'
-import StartGame from '../components/functional/StartGame'
+import BasicButton from '../components/ui/Button'
 import Layout from '../components/ui/Layout'
-import PlayerName from '../components/ui/PlayerName'
 import PlayerSection from '../components/ui/PlayerSection'
 import { createGame, createRound, fetchAllRounds, fetchOneGame } from '../services/api'
 import { choices } from '../utils/choices'
@@ -151,32 +150,38 @@ function AppLayout() {
         justifyContent="center"
         alignItems="center"
         width={710}
+        gap={4}
       >
-        <PointsSection>
+        <Flex width={710}>
           <PlayerSection playerAvatar={<HumanAvatar />}>
-            <PlayerName>{playerName}</PlayerName>
+            <Text color="color.lightBlue" fontWeight={900} fontSize={24}>{playerName}</Text>
             <Points score={points.userPoints} />
           </PlayerSection>
           <PlayerSection
             flexDirection="row-reverse"
             playerAvatar={<RobotAvatar />}
           >
-            <PlayerName textAlign="end" alignSelf="end">
+            <Text color="color.lightBlue" fontWeight={900} fontSize={24} textAlign="end" alignSelf="end">
               {t('computer')}
-            </PlayerName>
+            </Text>
             <Points score={points.computerPoints} />
           </PlayerSection>
-        </PointsSection>
-        <GameLayout
-          gamePlay={gamePlay}
-          winner={winner}
-          setGamePlay={setGamePlay}
-          timeLeft={timeLeft}
-          isTimerActive={isTimerActive}
-          setIsTimerActive={setIsTimerActive}
-          setTimeLeft={setTimeLeft}
-          playerName={playerName}
-        />
+        </Flex>
+        <Flex gap={8} justifyContent="center">
+          <GameRules />
+          <GameScene
+            gamePlay={gamePlay}
+            winner={winner}
+            setGamePlay={setGamePlay}
+            timeLeft={timeLeft}
+            isTimerActive={isTimerActive}
+            setIsTimerActive={setIsTimerActive}
+            setTimeLeft={setTimeLeft}
+            playerName={playerName}
+          />
+          <GameHistoric gamePlay={gamePlay} />
+        </Flex>
+
       </Flex>
 
       {!winner && (
@@ -187,7 +192,7 @@ function AppLayout() {
         />
       )}
       {winner && (
-        <StartGame
+        <BasicButton
           buttonTitle={t('startAgain')}
           onClick={handleStartAgain}
         />

@@ -1,11 +1,14 @@
 import { Box } from '@chakra-ui/react'
 
-function BluePoint() {
+export interface PointProps {
+  color: string
+}
+function Point({ color }: PointProps) {
   return (
     <Box
       width={7}
       height={7}
-      backgroundColor="color.nightBlue"
+      backgroundColor={color}
       borderRadius={50}
       margin={1}
     >
@@ -13,4 +16,4 @@ function BluePoint() {
   )
 }
 
-export default BluePoint
+export default Point
