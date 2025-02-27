@@ -1,9 +1,9 @@
 'use client'
 
-import type { PlayersChoices } from '../../routes/shifumi.lazy'
+import type { PlayersChoices } from '../../routes/shifumi.$gameId'
 import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Choice } from '@shifumi/dtos'
 import { useEffect } from 'react'
-import { Choice } from '../../utils/enums'
 
 interface TimerProps {
   setGamePlay: React.Dispatch<React.SetStateAction<PlayersChoices>>

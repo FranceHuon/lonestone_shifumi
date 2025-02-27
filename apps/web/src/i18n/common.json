@@ -7,5 +7,8 @@
   "computer": "J-ordi",
   "start": "Commencer la partie",
   "startAgain": "Recommencer la partie",
-  "winner": "Le vainqueur est "
+  "winner": "Le vainqueur est ",
+  "leafRule": "feuille bat pierre",
+  "stoneRule": "pierre bat ciseaux",
+  "scissorsRule": "ciseaux bat feuille"
 }

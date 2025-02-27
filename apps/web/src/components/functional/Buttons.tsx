@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react'
+import { Choice } from '@shifumi/dtos'
+
 import { BlueLeafIllu, BlueScissorsIllu, BlueStoneIllu } from '../../assets/BlueIllus'
-import { Choice } from '../../utils/enums'
 import BasicButton from '../ui/Button'
 
 interface ButtonsProps {
@@ -9,7 +10,7 @@ interface ButtonsProps {
 
 function Buttons({ handleUserChoice }: ButtonsProps) {
   return (
-    <Box width="full" display="flex" justifyContent="center">
+    <Box display="flex" justifyContent="space-between" width={710}>
       <BasicButton
         onClick={() => {
           handleUserChoice(Choice.STONE)
