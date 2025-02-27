@@ -1,5 +1,5 @@
-import type { PlayersChoices } from '../components/functional/AppLayout'
-import { Choice } from './enums'
+import type { PlayersChoices } from '../routes/shifumi.$gameId'
+import { Choice } from '@shifumi/dtos'
 
 export function getPoints(gamePlay: PlayersChoices) {
   const points = {

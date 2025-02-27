@@ -1,4 +1,4 @@
-import { Rule } from './enums'
+import { Rule } from '@shifumi/dtos'
 
 export const rules = {
   [Rule.LEAF]: {

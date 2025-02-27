@@ -1,5 +1,5 @@
+import { Choice, Result } from '@shifumi/dtos'
 import { choices } from './choices'
-import { Choice, Result } from './enums'
 
 export function getResult(userLastGamePlay: Choice, computerLastGamePlay: Choice) {
   if (userLastGamePlay === computerLastGamePlay) {
