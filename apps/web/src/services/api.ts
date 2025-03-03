@@ -15,8 +15,8 @@ export async function fetchOnePlayerByName(name: string): Promise<PlayerDto> {
 }
 
 // game
-export async function createGame({ playerTwoName }: { playerTwoName: string }): Promise<GameDto> {
-  return await api.post('games', { json: { playerTwoName } }).json()
+export async function createGame(playerOneName: string, playerTwoName: string): Promise<GameDto> {
+  return await api.post('games', { json: { playerOneName, playerTwoName } }).json()
 }
 
 export async function fetchOneGame(id: number): Promise<GameDto> {

@@ -2,20 +2,11 @@ import { Box, Heading } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 interface WinnerScreenProps {
-  winner: 'user' | 'computer' | null
-  playerName: string | undefined
+  winner: string
 }
 
-function WinnerScreen({ winner, playerName }: WinnerScreenProps) {
+function WinnerScreen({ winner }: WinnerScreenProps) {
   const { t } = useTranslation('common')
-  let winnerName
-  if (winner === 'user') {
-    winnerName = playerName
-  }
-  else {
-    winnerName = 'ordinateur'
-  }
-
   return (
     <Box
       width="full"
@@ -25,7 +16,7 @@ function WinnerScreen({ winner, playerName }: WinnerScreenProps) {
     >
       <Heading color="color.lightBlue">
         {t('winner')}
-        {winnerName}
+        {winner}
 
       </Heading>
     </Box>

@@ -12,24 +12,26 @@ export const Route = createLazyFileRoute('/')({
 
 function Welcome() {
   const { t } = useTranslation('common')
-  const [playerName, setPlayerName] = useState('')
+  const [playerOneName, setPlayerOneName] = useState('')
+  const [playerTwoName, setPlayerTwoName] = useState('')
   const navigate = useNavigate()
 
   async function handleStartGame() {
-    if (!playerName) {
-      throw new Error('Please enter your name!')
-    }
-
     try {
-      const player = await createPlayer(playerName)
-      console.warn('New player:', player)
+      const playerOne = await createPlayer(playerOneName)
 
-      const newGame = await createGame({ playerTwoName: player.name })
+      const playerTwo = await createPlayer(playerTwoName)
+
+      const newGame = await createGame(playerOne.name, playerTwo.name)
       console.warn('New game:', newGame)
       navigate({
         to: '/shifumi/$gameId',
         params: {
           gameId: newGame.id.toString(),
+        },
+        search: {
+          playerOneName: playerOne.name,
+          playerTwoName: playerTwo.name,
         },
       })
     }
@@ -40,7 +42,8 @@ function Welcome() {
 
   return (
     <Layout>
-      <PlayerInput playerName={playerName} setPlayerName={setPlayerName} />
+      <PlayerInput playerName={playerOneName} setPlayerName={setPlayerOneName} />
+      <PlayerInput playerName={playerTwoName} setPlayerName={setPlayerTwoName} />
       <BasicButton
         buttonTitle={t('start')}
         onClick={handleStartGame}

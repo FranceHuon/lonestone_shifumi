@@ -8,47 +8,48 @@ import { Player } from '../../entities/player.entity.js'
 export class GameService {
   constructor(private readonly em: EntityManager) {}
 
-  async create(playerTwoName: string): Promise<GameDto> {
-    // Pour le moment playerOne est toujours Computer
-    let playerOne = await this.em.findOne(Player, { name: 'Computer' })
+  async create(playerOneName: string, playerTwoName: string): Promise<GameDto> {
+    let playerOne = await this.em.findOne(Player, { name: playerOneName })
     if (!playerOne) {
-      playerOne = this.em.create(Player, { name: 'Computer' })
+      playerOne = new Player()
+      playerOne.name = playerOneName
       await this.em.persistAndFlush(playerOne)
     }
-
     let playerTwo = await this.em.findOne(Player, { name: playerTwoName })
     if (!playerTwo) {
-      playerTwo = this.em.create(Player, { name: playerTwoName })
+      playerTwo = new Player()
+      playerTwo.name = playerTwoName
       await this.em.persistAndFlush(playerTwo)
     }
 
-    const game = this.em.create(Game, {
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      playerOne,
-      playerTwo,
-    })
+    const game = new Game()
+    game.createdAt = new Date()
+    game.updatedAt = new Date()
+    game.players.add(playerOne, playerTwo)
 
     await this.em.persistAndFlush(game)
     return {
       id: game.id,
-      playerOne: game.playerOne.name,
-      playerTwo: game.playerTwo.name,
+      players: game.players.getItems().map(player => player.name),
       createdAt: game.createdAt,
     }
   }
 
   async getOne(id: number): Promise<GameDto | null> {
     // populate est utilisé pour charger les relations entre les entités
-    const game = await this.em.findOne(Game, { id }, { populate: ['playerOne', 'playerTwo'] })
+    const game = await this.em.findOne(Game, { id }, { populate: ['players'] })
     if (!game) {
       throw new NotFoundException(`Game with id ${id} not found`)
     }
     return {
       id: game.id,
-      playerOne: game.playerOne.name,
-      playerTwo: game.playerTwo.name,
+      players: game.players.getItems().map(player => player.name),
       createdAt: game.createdAt,
     }
+  }
+
+  async remove(id: number): Promise<void> {
+    const game = await this.em.findOneOrFail(Game, { id })
+    await this.em.remove(game).flush()
   }
 }

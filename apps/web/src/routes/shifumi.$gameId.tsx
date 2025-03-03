@@ -25,25 +25,27 @@ export type PlayersChoices = {
   computerChoice: Choice
 }[]
 
-function handleWinner(userPoints: number, computerPoints: number) {
-  if (userPoints >= 5) {
-    return 'user'
-  }
-  else if (computerPoints >= 5) {
-    return 'computer'
-  }
-  else {
-    return null
-  }
-}
-
 export interface AppLayoutProps {
-  playerName: string | undefined
+  // playerOneName: string | undefined
+  // playerTwoName: string | undefined
 }
 
 function AppLayout() {
   const { gameId } = Route.useParams()
+  const { playerOneName, playerTwoName } = Route.useSearch()
   const gameIdAsNumber = Number(gameId)
+
+  function handleWinner(playerOnePoints: number, playerTwoPoints: number) {
+    if (playerOnePoints >= 5) {
+      return playerOneName
+    }
+    else if (playerTwoPoints >= 5) {
+      return playerTwoName
+    }
+    else {
+      return null
+    }
+  }
 
   const { t } = useTranslation('common')
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
@@ -75,7 +77,13 @@ function AppLayout() {
     }
   }, [gameIdAsNumber])
 
-  const playerName = gameData?.playerTwo
+  const players = gameData?.players
+  players?.map((name) => {
+    return {
+      playerOneName: name,
+      playerTwoName: name,
+    }
+  })
 
   const getRandomChoice = (): Choice => {
     const values = Object.keys(choices)
@@ -124,18 +132,15 @@ function AppLayout() {
   async function handleStartAgain() {
     setGamePlay([])
     setIsTimerActive(true)
-    if (!playerName) {
-      throw new Error('Please enter your name!')
-    }
 
     try {
-      const newGame = await createGame({ playerTwoName: playerName })
-      console.warn('New game:', newGame)
+      const newGame = await createGame (playerOneName, playerTwoName)
       navigate({
         to: '/shifumi/$gameId',
         params: {
           gameId: newGame.id.toString(),
         },
+        search: { playerOneName, playerTwoName },
       })
     }
     catch (error) {
@@ -154,7 +159,7 @@ function AppLayout() {
       >
         <Flex width={710}>
           <PlayerSection playerAvatar={<HumanAvatar />}>
-            <Text color="color.lightBlue" fontWeight={900} fontSize={24}>{playerName}</Text>
+            <Text color="color.lightBlue" fontWeight={900} fontSize={24}>{playerOneName}</Text>
             <Points score={points.userPoints} />
           </PlayerSection>
           <PlayerSection
@@ -162,7 +167,7 @@ function AppLayout() {
             playerAvatar={<RobotAvatar />}
           >
             <Text color="color.lightBlue" fontWeight={900} fontSize={24} textAlign="end" alignSelf="end">
-              {t('computer')}
+              {playerTwoName}
             </Text>
             <Points score={points.computerPoints} />
           </PlayerSection>
@@ -177,7 +182,7 @@ function AppLayout() {
             isTimerActive={isTimerActive}
             setIsTimerActive={setIsTimerActive}
             setTimeLeft={setTimeLeft}
-            playerName={playerName}
+
           />
           <GameHistoric gamePlay={gamePlay} />
         </Flex>

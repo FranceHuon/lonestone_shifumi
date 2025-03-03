@@ -1,7 +1,6 @@
 import { Box, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { LeafIcon, ScissorsIcon, StoneIcon } from '../../assets/Icons'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
 import IconShifu from '../ui/IconShifu'
 import Tag from '../ui/Tag'
@@ -9,8 +8,7 @@ import Tag from '../ui/Tag'
 function GameRules() {
   const { t } = useTranslation('common')
   return (
-    <BoxLayout width={300} gap={6}>
-      <BoxHeading>{t('rules')}</BoxHeading>
+    <BoxLayout width={300} gap={6} title={t('rules')}>
       <Tag>
         <IconShifu backgroundColor="color.darkBlue" icon={<StoneIcon />} />
         <Text color="color.lightBlue" padding={2}>{t('stoneRule')}</Text>

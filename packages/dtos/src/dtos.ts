@@ -1,8 +1,7 @@
 export interface GameDto {
   id: number
   createdAt: Date
-  playerOne: string
-  playerTwo: string
+  players: string[]
 }
 
 export interface PlayerDto {
