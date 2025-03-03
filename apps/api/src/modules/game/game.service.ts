@@ -51,4 +51,9 @@ export class GameService {
       createdAt: game.createdAt,
     }
   }
+
+  async remove(id: number): Promise<void> {
+    const game = await this.em.findOneOrFail(Game, { id })
+    await this.em.remove(game).flush()
+  }
 }

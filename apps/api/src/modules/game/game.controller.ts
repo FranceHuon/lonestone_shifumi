@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
 import { GameDto } from '@shifumi/dtos'
 import { GameService } from './game.service.js'
 
@@ -13,8 +13,13 @@ export class GameController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<GameDto | null> {
+  async getOne(@Param('id') id: number): Promise<GameDto | null> {
     const game = await this.gameService.getOne(id)
     return game
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: number): Promise<void> {
+    await this.gameService.remove(id)
   }
 }
