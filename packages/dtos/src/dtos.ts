@@ -1,32 +1,24 @@
 export interface GameDto {
   id: number
   createdAt: Date
-  updatedAt: Date
-}
-
-export interface CreateGameDto {
-  playerOneId: number
-  playerTwoId: number
+  players: string[]
 }
 
 export interface PlayerDto {
-  name: string
-}
-
-export interface CreatePlayerDto {
+  id: number
   name: string
 }
 
 export interface RoundDto {
-  id: number
-  gameId: number
-  player1Choice: string
-  player2Choice: string
+  roundNumber: number
+  playerOneChoice: string
+  playerTwoChoice: string
   createdAt: Date
   updatedAt: Date | null
 }
 
 export interface CreateRoundDto {
-  player1Choice: string
-  player2Choice: string
+  playerOneChoice: string
+  playerTwoChoice: string
+  gameId: number
 }

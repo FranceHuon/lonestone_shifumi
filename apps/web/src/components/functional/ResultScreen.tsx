@@ -1,4 +1,4 @@
-import type { Choice } from '../../utils/enums'
+import type { Choice } from '@shifumi/dtos'
 import { Box, Heading } from '@chakra-ui/react'
 import { getResult } from '../../utils/getResult'
 

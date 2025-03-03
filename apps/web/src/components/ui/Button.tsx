@@ -1,4 +1,4 @@
-import type { Choice } from '../../utils/enums'
+import type { Choice } from '@shifumi/dtos'
 import { Button, Text } from '@chakra-ui/react'
 
 interface BasicButtonProps {

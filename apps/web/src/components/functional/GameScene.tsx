@@ -1,19 +1,17 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '../../routes/shifumi.$gameId'
 import { Box, Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { choices } from '../../utils/choices'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
-import EndGameDisplay from '../ui/EndGameDisplay'
 import SymbolCard from '../ui/SymbolCard'
+import WinnerScreen from '../ui/WinnerScreen'
 import ResultScreen from './ResultScreen'
 import Timer from './Timer'
 
 interface GameSceneProps {
-  isStarted: boolean
   gamePlay: PlayersChoices
-  winner: 'user' | 'computer' | null
+  winner: string
   timeLeft: number
   setGamePlay: React.Dispatch<React.SetStateAction<PlayersChoices>>
   isTimerActive: boolean
@@ -22,7 +20,6 @@ interface GameSceneProps {
 }
 
 function GameScene({
-  isStarted,
   gamePlay,
   winner,
   setGamePlay,
@@ -44,17 +41,9 @@ function GameScene({
   }, [winner, setIsTimerActive])
 
   return (
-    <BoxLayout width={710}>
-      <Box>
-        <BoxHeading>
-          {t('round')}
-          {' '}
-          {roundNumber}
-        </BoxHeading>
-      </Box>
-
+    <BoxLayout width={710} title={`${t('round')} ${roundNumber}`}>
       <Flex width="full" flexGrow={1}>
-        {isStarted && isTimerActive && !winner && (
+        {isTimerActive && !winner && (
           <Timer
             setGamePlay={setGamePlay}
             isTimerActive={isTimerActive}
@@ -110,8 +99,7 @@ function GameScene({
             </Box>
           </Box>
         )}
-        {/* {winner && <WinnerDisplay winner={winner} />} */}
-        {winner && !isTimerActive && (<EndGameDisplay />)}
+        {winner && <WinnerScreen winner={winner} />}
       </Flex>
     </BoxLayout>
   )

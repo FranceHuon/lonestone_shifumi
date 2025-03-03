@@ -4,20 +4,20 @@ import { Game } from './game.entity.js'
 @Entity()
 export class Round {
   @PrimaryKey()
-  id!: number
+  roundNumber!: number
 
-  @Property()
-  player1Choice!: string
-
-  @Property()
-  player2Choice!: string
-
-  @Property({ type: 'date' })
-  createdAt!: Date
-
-  @Property({ type: 'date' })
-  updatedAt!: Date | null
-
-  @ManyToOne(() => Game)
+  @ManyToOne(() => Game, { primary: true })
   game!: Game
+
+  @Property()
+  playerOneChoice!: string
+
+  @Property()
+  playerTwoChoice!: string
+
+  @Property({ onCreate: () => new Date() })
+  createdAt = new Date()
+
+  @Property({ onUpdate: () => new Date() })
+  updatedAt = new Date()
 }

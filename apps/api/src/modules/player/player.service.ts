@@ -1,17 +1,15 @@
 import { EntityManager } from '@mikro-orm/sqlite'
-import { Injectable } from '@nestjs/common'
-import { CreatePlayerDto, PlayerDto } from '@shifumi/dtos'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { PlayerDto } from '@shifumi/dtos'
 import { Player } from '../../entities/player.entity.js'
 
 @Injectable()
 export class PlayerService {
   constructor(private readonly em: EntityManager) {}
 
-  async create(createPlayerDto: CreatePlayerDto) {
+  async create(name: string): Promise<PlayerDto> {
     return await this.em.transactional(async (em) => {
-      const { name } = createPlayerDto
-
-      let player = await em.findOne(Player, { name })
+      let player = await this.em.findOne(Player, { name })
 
       if (!player) {
         player = em.create(Player, {
@@ -23,9 +21,19 @@ export class PlayerService {
     })
   }
 
-  async getOne(name: string)  : Promise<PlayerDto> {
-    const player = await this.em.findOneOrFail(Player, { name })
+  async findById(id: number): Promise<PlayerDto> {
+    const player = await this.em.findOne(Player, { id })
+    if (!player) {
+      throw new NotFoundException(`Player with ID ${id} not found`)
+    }
     return player
   }
 
+  async findByName(name: string): Promise<PlayerDto> {
+    const player = await this.em.findOne(Player, { name })
+    if (!player) {
+      throw new NotFoundException(`Player with name ${name} not found`)
+    }
+    return player
+  }
 }

@@ -1,26 +1,33 @@
-import type { CreateGameDto, CreatePlayerDto, CreateRoundDto, GameDto, PlayerDto, RoundDto } from '@shifumi/dtos'
+import type { CreateRoundDto, GameDto, PlayerDto, RoundDto } from '@shifumi/dtos'
 import { api } from '../config'
 
-export async function fetchOneGame(
-  id: number,
-): Promise<GameDto> {
+// players
+export async function createPlayer(name: string): Promise<PlayerDto> {
+  return await api.post('players', { json: { name } }).json()
+}
+
+export async function fetchOnePlayer(id: number): Promise<PlayerDto> {
+  return await api.get(`players/id/${id}`).json()
+}
+
+export async function fetchOnePlayerByName(name: string): Promise<PlayerDto> {
+  return await api.get(`players/name/${name}`).json()
+}
+
+// game
+export async function createGame(playerOneName: string, playerTwoName: string): Promise<GameDto> {
+  return await api.post('games', { json: { playerOneName, playerTwoName } }).json()
+}
+
+export async function fetchOneGame(id: number): Promise<GameDto> {
   return await api.get(`games/${id}`).json()
 }
 
-export async function createGame(newGame: CreateGameDto): Promise<GameDto> {
-  return await api.post('games', { json: newGame }).json()
+// round
+export async function createRound(createRoundDto: CreateRoundDto): Promise<RoundDto> {
+  return await api.post('rounds', { json: createRoundDto }).json()
 }
 
-export async function createPlayer(newPlayer: CreatePlayerDto): Promise<PlayerDto> {
-  return await api.post('players', { json: newPlayer }).json()
-}
-
-export async function createRound(newRound: CreateRoundDto): Promise<RoundDto> {
-  return await api.post('rounds', { json: newRound }).json()
-}
-
-export async function fetchOnePlayer(
-  name: string,
-): Promise<PlayerDto> {
-  return await api.get(`players/${name}`).json()
+export async function fetchAllRounds(gameId: number): Promise<RoundDto[]> {
+  return await api.get('rounds', { searchParams: { gameId } }).json()
 }
