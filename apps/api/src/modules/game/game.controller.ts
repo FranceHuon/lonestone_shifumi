@@ -7,8 +7,8 @@ export class GameController {
   constructor(private gameService: GameService) {}
 
   @Post()
-  async create(@Body() body: { playerTwoName: string }): Promise<GameDto> {
-    const newGame = await this.gameService.create(body.playerTwoName)
+  async create(@Body() body: { playerOneName: string, playerTwoName: string }): Promise<GameDto> {
+    const newGame = await this.gameService.create(body.playerOneName, body.playerTwoName)
     return newGame
   }
 

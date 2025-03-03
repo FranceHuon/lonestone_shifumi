@@ -3,7 +3,6 @@ import { Box, Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { choices } from '../../utils/choices'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
 import SymbolCard from '../ui/SymbolCard'
 import WinnerScreen from '../ui/WinnerScreen'
@@ -12,13 +11,12 @@ import Timer from './Timer'
 
 interface GameSceneProps {
   gamePlay: PlayersChoices
-  winner: 'user' | 'computer' | null
+  winner: string
   timeLeft: number
   setGamePlay: React.Dispatch<React.SetStateAction<PlayersChoices>>
   isTimerActive: boolean
   setIsTimerActive: React.Dispatch<React.SetStateAction<boolean>>
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>
-  playerName: string | undefined
 }
 
 function GameScene({
@@ -29,7 +27,6 @@ function GameScene({
   isTimerActive,
   setIsTimerActive,
   setTimeLeft,
-  playerName,
 }: GameSceneProps) {
   const { t } = useTranslation('common')
   const lastGamePlay = gamePlay[gamePlay.length - 1]
@@ -44,14 +41,7 @@ function GameScene({
   }, [winner, setIsTimerActive])
 
   return (
-    <BoxLayout width={710}>
-      <Box>
-        <BoxHeading>
-          {t('round')}
-          {roundNumber}
-        </BoxHeading>
-      </Box>
-
+    <BoxLayout width={710} title={`${t('round')} ${roundNumber}`}>
       <Flex width="full" flexGrow={1}>
         {isTimerActive && !winner && (
           <Timer
@@ -109,7 +99,7 @@ function GameScene({
             </Box>
           </Box>
         )}
-        {winner && <WinnerScreen winner={winner} playerName={playerName} />}
+        {winner && <WinnerScreen winner={winner} />}
       </Flex>
     </BoxLayout>
   )

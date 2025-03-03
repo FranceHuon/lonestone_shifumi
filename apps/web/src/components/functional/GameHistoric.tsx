@@ -2,7 +2,6 @@ import type { PlayersChoices } from '../../routes/shifumi.$gameId'
 import { Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { getRoundResult } from '../../utils/getResult'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
 import IconShifu from '../ui/IconShifu'
 import Tag from '../ui/Tag'
@@ -20,8 +19,9 @@ function GameHistoric({ gamePlay }: GameHistoricProps) {
       overflowY="auto"
       overflowX="hidden"
       width={310}
+      title={t('historic')}
     >
-      <BoxHeading>{t('historic')}</BoxHeading>
+
       {hitHistory.map((item, index) => {
         return (
           <Tag

@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
+import { Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
 import { Player } from './player.entity.js'
 
 @Entity()
@@ -12,9 +12,6 @@ export class Game {
   @Property({ onUpdate: () => new Date() })
   updatedAt = new Date()
 
-  @ManyToOne(() => Player)
-  playerOne!: Player
-
-  @ManyToOne(() => Player)
-  playerTwo!: Player
+  @ManyToMany(() => Player)
+  players = new Collection<Player>(this)
 }
