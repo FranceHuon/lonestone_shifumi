@@ -11,4 +11,7 @@ export class Player {
 
   @ManyToMany(() => Game, game => game.players)
   games = new Collection<Game>(this)
+
+  @Property({ default: false })
+  isNpc!: boolean
 }

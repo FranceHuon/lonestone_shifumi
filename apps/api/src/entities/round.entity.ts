@@ -1,4 +1,5 @@
 import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
+import { Choice } from '@shifumi/dtos'
 import { Game } from './game.entity.js'
 
 @Entity()
@@ -10,10 +11,10 @@ export class Round {
   game!: Game
 
   @Property()
-  playerOneChoice!: string
+  playerOneChoice!: Choice
 
   @Property()
-  playerTwoChoice!: string
+  playerTwoChoice!: Choice
 
   @Property({ onCreate: () => new Date() })
   createdAt = new Date()
