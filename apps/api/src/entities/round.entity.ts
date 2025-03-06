@@ -1,6 +1,7 @@
-import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
+import { Collection, Entity, ManyToOne, OneToMany, PrimaryKey, Property } from '@mikro-orm/core'
 import { Choice } from '@shifumi/dtos'
 import { Game } from './game.entity.js'
+import { PlayerChoice } from './playerChoice.entity.js'
 
 @Entity()
 export class Round {

@@ -1,5 +1,6 @@
-import { Collection, Entity, ManyToMany, PrimaryKey, Property } from '@mikro-orm/core'
+import { Collection, Entity, ManyToMany, OneToMany, PrimaryKey, Property } from '@mikro-orm/core'
 import { Game } from './game.entity.js'
+import { PlayerChoice } from './playerChoice.entity.js'
 
 @Entity()
 export class Player {
