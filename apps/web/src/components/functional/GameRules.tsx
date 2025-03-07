@@ -25,7 +25,7 @@ function GameRules() {
         <IconShifu backgroundColor="color.darkBlue" icon={<LeafIcon />} />
       </Tag>
       <Box bg="color.darkBlue" height={1} width={150}></Box>
-      <Text color="color.lightBlue" padding={2}>Le premier à 5 gagne</Text>
+      <Text color="color.lightBlue" padding={2}>{t('win')}</Text>
     </BoxLayout>
   )
 }

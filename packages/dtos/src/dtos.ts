@@ -1,24 +1,31 @@
+import type { Choice } from './enums'
+
 export interface GameDto {
   id: number
   createdAt: Date
-  players: string[]
+  players: PlayerDto[]
 }
 
 export interface PlayerDto {
   id: number
   name: string
+  isNpc: boolean
 }
 
 export interface RoundDto {
   roundNumber: number
-  playerOneChoice: string
-  playerTwoChoice: string
+  playersChoices: CreateChoiceDto[]
   createdAt: Date
   updatedAt: Date | null
 }
 
 export interface CreateRoundDto {
-  playerOneChoice: string
-  playerTwoChoice: string
   gameId: number
+  playerOneChoice: Choice
+  playerTwoChoice: Choice
+}
+
+export interface CreateChoiceDto {
+  choice: Choice
+  playerId: number
 }

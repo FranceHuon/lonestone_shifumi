@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core'
+import { Collection, Entity, ManyToMany, PrimaryKey, Property } from '@mikro-orm/core'
 import { Player } from './player.entity.js'
 
 @Entity()

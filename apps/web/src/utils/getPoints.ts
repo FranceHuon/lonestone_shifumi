@@ -1,10 +1,10 @@
-import type { PlayersChoices } from '../routes/shifumi.$gameId'
+import type { PlayersChoices } from '@shifumi/dtos'
 import { Choice } from '@shifumi/dtos'
 
 // export function getPoints(gamePlay: PlayersChoices) {
 //   const points = {
-//     userPoints: 0,
-//     computerPoints: 0,
+//     playerOnePoints: 0,
+//     playerTwoPoints: 0,
 //   }
 //   gamePlay.forEach((round) => {
 //     const { userChoice, computerChoice } = round
@@ -13,46 +13,46 @@ import { Choice } from '@shifumi/dtos'
 //       || (userChoice === Choice.SCISSORS && computerChoice === Choice.LEAF)
 //       || (userChoice === Choice.STONE && computerChoice === Choice.SCISSORS)
 //     ) {
-//       points.userPoints += 1
+//       points.playerOnePoints += 1
 //     }
 //     else if (
 //       (computerChoice === Choice.LEAF && userChoice === Choice.STONE)
 //       || (computerChoice === Choice.SCISSORS && userChoice === Choice.LEAF)
 //       || (computerChoice === Choice.STONE && userChoice === Choice.SCISSORS)
 //     ) {
-//       points.computerPoints += 1
+//       points.playerTwoPoints += 1
 //     }
 //   })
 
 //   return points
 // }
 
-export function getRoundPoints(userChoice: Choice, computerChoice: Choice) {
+export function getRoundPoints(playerOneChoice: Choice, playerTwoChoice: Choice) {
   const winningCombinations = {
     [Choice.LEAF]: Choice.STONE,
     [Choice.STONE]: Choice.SCISSORS,
     [Choice.SCISSORS]: Choice.LEAF,
   }
 
-  if (winningCombinations[userChoice] === computerChoice) {
-    return { userPoints: 1, computerPoints: 0 }
+  if (winningCombinations[playerOneChoice] === playerTwoChoice) {
+    return { playerOnePoints: 1, playerTwoPoints: 0 }
   }
 
-  if (winningCombinations[computerChoice] === userChoice) {
-    return { userPoints: 0, computerPoints: 1 }
+  if (winningCombinations[playerTwoChoice] === playerOneChoice) {
+    return { playerOnePoints: 0, playerTwoPoints: 1 }
   }
-  return { userPoints: 0, computerPoints: 0 }
+  return { playerOnePoints: 0, playerTwoPoints: 0 }
 }
 
 export function getPoints(gamePlay: PlayersChoices) {
   return gamePlay.reduce(
     (points, round) => {
-      const { userChoice, computerChoice } = round
-      const roundPoints = getRoundPoints(userChoice, computerChoice)
-      points.userPoints += roundPoints.userPoints
-      points.computerPoints += roundPoints.computerPoints
+      const { playerOneChoice, playerTwoChoice } = round
+      const roundPoints = getRoundPoints(playerOneChoice, playerTwoChoice)
+      points.playerOnePoints += roundPoints.playerOnePoints
+      points.playerTwoPoints += roundPoints.playerTwoPoints
       return points
     },
-    { userPoints: 0, computerPoints: 0 },
+    { playerOnePoints: 0, playerTwoPoints: 0 },
   )
 }
