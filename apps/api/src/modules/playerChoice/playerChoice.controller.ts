@@ -4,10 +4,13 @@ import { PlayerChoiceService } from './playerChoice.service.js'
 
 @Controller('make-choice')
 export class PlayerChoiceController {
-  constructor(private playerChoiceService: PlayerChoiceService) {}
+  constructor(
+    private readonly playerChoiceService: PlayerChoiceService,
+  ) {}
 
   @Post()
   async makeChoice(@Body() createChoiceDto: CreateChoiceDto) {
-    return await this.playerChoiceService.makeChoice(createChoiceDto)
+    const playerChoice = await this.playerChoiceService.makeChoice(createChoiceDto)
+    return playerChoice
   }
 }

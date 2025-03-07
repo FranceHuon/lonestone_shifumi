@@ -10,5 +10,6 @@
   "winner": "Le vainqueur est ",
   "leafRule": "feuille bat pierre",
   "stoneRule": "pierre bat ciseaux",
-  "scissorsRule": "ciseaux bat feuille"
+  "scissorsRule": "ciseaux bat feuille",
+  "win": "Le premier à 5 gagne"
 }

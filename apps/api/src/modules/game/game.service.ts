@@ -1,52 +1,44 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { GameDto } from '@shifumi/dtos'
 import { Game } from '../../entities/game.entity.js'
 import { Player } from '../../entities/player.entity.js'
+import { PlayerService } from '../player/player.service.js'
 
 @Injectable()
 export class GameService {
-  constructor(private readonly em: EntityManager) {}
+  constructor(private readonly em: EntityManager, private readonly playerService: PlayerService) {}
 
-  async create(playerOneName: string, playerTwoName: string): Promise<GameDto> {
-    let playerOne = await this.em.findOne(Player, { name: playerOneName })
-    if (!playerOne) {
-      playerOne = new Player()
-      playerOne.name = playerOneName
-      await this.em.persistAndFlush(playerOne)
-    }
-    let playerTwo = await this.em.findOne(Player, { name: playerTwoName })
-    if (!playerTwo) {
-      playerTwo = new Player()
-      playerTwo.name = playerTwoName
-      await this.em.persistAndFlush(playerTwo)
-    }
-
+  async createWithNpc(player: Player): Promise<Game> {
     const game = new Game()
     game.createdAt = new Date()
     game.updatedAt = new Date()
-    game.players.add(playerOne, playerTwo)
+    const playerTwo = await this.playerService.createNpc()
+    game.players.add(player, playerTwo)
 
     await this.em.persistAndFlush(game)
-    return {
-      id: game.id,
-      players: game.players.getItems().map(player => player.name),
-      createdAt: game.createdAt,
-    }
+    return game
   }
 
-  async getOne(id: number): Promise<GameDto | null> {
+  async findOne(id: number): Promise<Game> {
     // populate est utilisé pour charger les relations entre les entités
     const game = await this.em.findOne(Game, { id }, { populate: ['players'] })
     if (!game) {
       throw new NotFoundException(`Game with id ${id} not found`)
     }
-    return {
-      id: game.id,
-      players: game.players.getItems().map(player => player.name),
-      createdAt: game.createdAt,
-    }
+    return game
   }
+
+  // async getPlayersByGameId(id: number): Promise<{ playerOne: Player, playerTwo: Player }> {
+  //   const game = await this.em.findOne(Game, { id }, { populate: ['players'] })
+  //   if (!game) {
+  //     throw new Error('Game not found')
+  //   }
+  //   const players = game.players.getItems()
+  //   return {
+  //     playerOne: players[0],
+  //     playerTwo: players[1],
+  //   }
+  // }
 
   async remove(id: number): Promise<void> {
     const game = await this.em.findOneOrFail(Game, { id })

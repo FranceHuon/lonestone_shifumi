@@ -1,7 +1,6 @@
 import { EntityManager } from '@mikro-orm/sqlite'
 import { Injectable } from '@nestjs/common'
 import { CreateChoiceDto } from '@shifumi/dtos'
-import { Game } from '../../entities/game.entity.js'
 import { Player } from '../../entities/player.entity.js'
 import { PlayerChoice } from '../../entities/playerChoice.entity.js'
 
@@ -14,6 +13,7 @@ export class PlayerChoiceService {
     const player = await this.em.findOne(Player, { id: playerId })
     if (!player)
       throw new Error('Player not found')
+
     const playerChoice = this.em.create(PlayerChoice, {
       player,
       choice,

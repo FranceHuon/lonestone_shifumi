@@ -1,5 +1,6 @@
-import type { Choice, CreateRoundDto, GameDto } from '@shifumi/dtos'
+import type { Choice, CreateChoiceDto, GameDto, PlayersChoices } from '@shifumi/dtos'
 import { Flex, Text } from '@chakra-ui/react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,29 +13,22 @@ import Points from '../components/functional/Points'
 import BasicButton from '../components/ui/Button'
 import Layout from '../components/ui/Layout'
 import PlayerSection from '../components/ui/PlayerSection'
-import { createGame, createRound, fetchAllRounds, fetchOneGame } from '../services/api'
-import { choices } from '../utils/choices'
+import { createGame, fetchAllRounds, fetchOneGame, makeChoice } from '../services/api'
 import { getPoints } from '../utils/getPoints'
 
 export const Route = createFileRoute('/shifumi/$gameId')({
   component: AppLayout,
 })
 
-export type PlayersChoices = {
-  userChoice: Choice
-  computerChoice: Choice
-}[]
-
-export interface AppLayoutProps {
-  // playerOneName: string | undefined
-  // playerTwoName: string | undefined
-}
-
 function AppLayout() {
   const { gameId } = Route.useParams()
   const { playerOneName, playerTwoName } = Route.useSearch()
   const gameIdAsNumber = Number(gameId)
 
+  const { data, isLoading } = useQuery({ queryKey: ['game', gameIdAsNumber], queryFn: () => fetchOneGame(gameIdAsNumber) })
+  console.warn('data : ', data)
+
+  const player = data?.players.find(player => !player.isNpc)
   function handleWinner(playerOnePoints: number, playerTwoPoints: number) {
     if (playerOnePoints >= 5) {
       return playerOneName
@@ -49,102 +43,65 @@ function AppLayout() {
 
   const { t } = useTranslation('common')
   const [gamePlay, setGamePlay] = useState<PlayersChoices>([])
-  const [timeLeft, setTimeLeft] = useState(4)
-  const [isTimerActive, setIsTimerActive] = useState(true)
+  // const [timeLeft, setTimeLeft] = useState(4)
+  // const [isTimerActive, setIsTimerActive] = useState(true)
   const [gameData, setGameData] = useState<GameDto | null>(null)
   const navigate = useNavigate()
 
-  useEffect(() => {
+  useEffect (() => {
     const fetchGame = async () => {
       try {
         const game = await fetchOneGame(gameIdAsNumber)
-        const rounds = await fetchAllRounds(gameIdAsNumber)
-        const playersChoices = rounds.map((round) => {
-          return {
-            userChoice: round.playerTwoChoice as Choice,
-            computerChoice: round.playerOneChoice as Choice,
-          }
-        })
-        setGamePlay(playersChoices)
+        const rounds = await fetchAllRounds((gameIdAsNumber))
         setGameData(game)
+        setGamePlay(
+          rounds.map(round => ({
+            playerOneChoice: round.playerOneChoice,
+            playerTwoChoice: round.playerTwoChoice,
+          })),
+        )
       }
       catch (error) {
         console.error('Erreur lors de la récupération des données du jeu:', error)
       }
     }
+
     if (gameIdAsNumber) {
       fetchGame()
     }
   }, [gameIdAsNumber])
 
-  const players = gameData?.players
-  players?.map((name) => {
-    return {
-      playerOneName: name,
-      playerTwoName: name,
-    }
-  })
-
-  const getRandomChoice = (): Choice => {
-    const values = Object.keys(choices)
-    const randomIndex = Math.floor(Math.random() * values.length)
-    const randomComputerChoice = values[randomIndex]
-    return randomComputerChoice as Choice
-  }
-
-  const newRound = async (playerOneChoice: Choice, playerTwoChoice: Choice) => {
-    const roundData: CreateRoundDto = {
-      gameId: gameIdAsNumber,
-      playerOneChoice,
-      playerTwoChoice,
-    }
-
+  const queryClient = useQueryClient()
+  const handleChoice = async (choice: Choice) => {
+    if (!player)
+      return
     try {
-      await createRound(roundData)
+      const newChoice = await makeChoice({
+        playerId: player.id,
+        choice,
+        gameId: gameIdAsNumber,
+      })
+      queryClient.invalidateQueries(['game', gameIdAsNumber])
     }
     catch (error) {
-      console.error (error)
+      console.error ('Erreur lors de la création du round:', error)
     }
-  }
-
-  const handleChoice = async (userChoice: Choice) => {
-    const computerChoice = getRandomChoice()
-    newRound(userChoice, computerChoice)
-
-    setGamePlay([
-      ...gamePlay,
-      {
-        userChoice,
-        computerChoice,
-      },
-    ])
-    setIsTimerActive(false)
-    setTimeLeft(4)
-    setTimeout(() => {
-      setIsTimerActive(true)
-    }, 3000)
   }
 
   const points = getPoints(gamePlay)
 
-  const winner = handleWinner(points.userPoints, points.computerPoints)
+  const winner = handleWinner(points.playerOnePoints, points.playerTwoPoints)
 
-  async function handleStartAgain() {
+  const handleStartAgain = async () => {
     setGamePlay([])
-    setIsTimerActive(true)
-
     try {
-      const newGame = await createGame (playerOneName, playerTwoName)
-      navigate({
-        to: '/shifumi/$gameId',
-        params: {
-          gameId: newGame.id.toString(),
-        },
-        search: { playerOneName, playerTwoName },
-      })
+      if (gameData) {
+        const newGame = await createGame(gameData.players[0], gameData.players[1])
+        navigate({ to: `Shifumi/${newGame.id}` })
+      }
     }
     catch (error) {
-      console.error(error)
+      console.error('Erreur lors de la création d\'un nouveau jeu:', error)
     }
   }
 
@@ -160,7 +117,7 @@ function AppLayout() {
         <Flex width={710}>
           <PlayerSection playerAvatar={<HumanAvatar />}>
             <Text color="color.lightBlue" fontWeight={900} fontSize={24}>{playerOneName}</Text>
-            <Points score={points.userPoints} />
+            <Points score={points.playerOnePoints} />
           </PlayerSection>
           <PlayerSection
             flexDirection="row-reverse"
@@ -169,7 +126,7 @@ function AppLayout() {
             <Text color="color.lightBlue" fontWeight={900} fontSize={24} textAlign="end" alignSelf="end">
               {playerTwoName}
             </Text>
-            <Points score={points.computerPoints} />
+            <Points score={points.playerTwoPoints} />
           </PlayerSection>
         </Flex>
         <Flex gap={8} justifyContent="center">
@@ -178,10 +135,10 @@ function AppLayout() {
             gamePlay={gamePlay}
             winner={winner}
             setGamePlay={setGamePlay}
-            timeLeft={timeLeft}
-            isTimerActive={isTimerActive}
-            setIsTimerActive={setIsTimerActive}
-            setTimeLeft={setTimeLeft}
+            // timeLeft={timeLeft}
+            // isTimerActive={isTimerActive}
+            // setIsTimerActive={setIsTimerActive}
+            // setTimeLeft={setTimeLeft}
 
           />
           <GameHistoric gamePlay={gamePlay} />
@@ -191,9 +148,7 @@ function AppLayout() {
 
       {!winner && (
         <Buttons
-          handleUserChoice={(choice) => {
-            handleChoice(choice)
-          }}
+          handleUserChoice={handleChoice}
         />
       )}
       {winner && (
