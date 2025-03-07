@@ -1,4 +1,5 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
+import { Collection, Entity, ManyToMany, OneToMany, PrimaryKey, Property } from '@mikro-orm/core'
+import { Game } from './game.entity.js'
 
 @Entity()
 export class Player {
@@ -8,6 +9,9 @@ export class Player {
   @Property()
   name!: string
 
-  @Property({ nullable: true })
-  avatar?: Buffer | null
+  @ManyToMany(() => Game, game => game.players)
+  games = new Collection<Game>(this)
+
+  @Property({ default: false })
+  isNpc!: boolean
 }

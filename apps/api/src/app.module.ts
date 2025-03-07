@@ -5,12 +5,16 @@ import { AppService } from './app.service.js'
 import ormConfig from './mikro-orm.config.js'
 import { GameModule } from './modules/game/game.module.js'
 import { PlayerModule } from './modules/player/player.module.js'
+import { PlayerChoiceModule } from './modules/playerChoice/playerChoice.module.js'
 import { RoundModule } from './modules/round/round.module.js'
 
 @Module({
   imports: [
     MikroOrmModule.forRoot(ormConfig),
-    GameModule, PlayerModule, RoundModule
+    GameModule,
+    PlayerModule,
+    RoundModule,
+    PlayerChoiceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

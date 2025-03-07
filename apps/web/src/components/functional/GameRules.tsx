@@ -1,35 +1,31 @@
+import { Box, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-
 import { LeafIcon, ScissorsIcon, StoneIcon } from '../../assets/Icons'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
-import GameRulesTag from '../ui/GameRulesTag'
-import GameRulesText from '../ui/GameRulesText'
 import IconShifu from '../ui/IconShifu'
-import Line from '../ui/Line'
+import Tag from '../ui/Tag'
 
 function GameRules() {
   const { t } = useTranslation('common')
   return (
-    <BoxLayout width={300}>
-      <BoxHeading>{t('rules')}</BoxHeading>
-      <GameRulesTag>
+    <BoxLayout width={300} gap={6} title={t('rules')}>
+      <Tag>
         <IconShifu backgroundColor="color.darkBlue" icon={<StoneIcon />} />
-        <GameRulesText rule="pierre bat ciseaux"></GameRulesText>
+        <Text color="color.lightBlue" padding={2}>{t('stoneRule')}</Text>
         <IconShifu backgroundColor="color.darkBlue" icon={<ScissorsIcon />} />
-      </GameRulesTag>
-      <GameRulesTag>
+      </Tag>
+      <Tag>
         <IconShifu backgroundColor="color.darkBlue" icon={<LeafIcon />} />
-        <GameRulesText rule="feuille bat pierre"></GameRulesText>
+        <Text color="color.lightBlue" padding={2}>{t('leafRule')}</Text>
         <IconShifu backgroundColor="color.darkBlue" icon={<StoneIcon />} />
-      </GameRulesTag>
-      <GameRulesTag>
+      </Tag>
+      <Tag>
         <IconShifu backgroundColor="color.darkBlue" icon={<ScissorsIcon />} />
-        <GameRulesText rule="ciseaux bat feuille"></GameRulesText>
+        <Text color="color.lightBlue" padding={2}>{t('scissorsRule')}</Text>
         <IconShifu backgroundColor="color.darkBlue" icon={<LeafIcon />} />
-      </GameRulesTag>
-      <Line />
-      <GameRulesText rule="Le premier à 5 gagne"></GameRulesText>
+      </Tag>
+      <Box bg="color.darkBlue" height={1} width={150}></Box>
+      <Text color="color.lightBlue" padding={2}>{t('win')}</Text>
     </BoxLayout>
   )
 }

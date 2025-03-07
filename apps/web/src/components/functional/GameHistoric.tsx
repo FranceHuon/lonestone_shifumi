@@ -1,11 +1,10 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '../../routes/shifumi.$gameId'
 import { Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { getRoundResult } from '../../utils/getResult'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
-import HistoryTag from '../ui/HistoryTag'
 import IconShifu from '../ui/IconShifu'
+import Tag from '../ui/Tag'
 
 interface GameHistoricProps {
   gamePlay: PlayersChoices
@@ -15,11 +14,23 @@ function GameHistoric({ gamePlay }: GameHistoricProps) {
   const { t } = useTranslation('common')
   const hitHistory = gamePlay.map(round => getRoundResult(round))
   return (
-    <BoxLayout gap={2} overflowY="scroll" width={300}>
-      <BoxHeading>{t('historic')}</BoxHeading>
+    <BoxLayout
+      gap={4}
+      overflowY="auto"
+      overflowX="hidden"
+      width={310}
+      title={t('historic')}
+    >
+
       {hitHistory.map((item, index) => {
         return (
-          <HistoryTag key={index}>
+          <Tag
+            margin={2}
+            padding={3}
+            color="color.nightBlue"
+            key={index}
+            height={60}
+          >
             <IconShifu
               backgroundColor={item.iconColorLeft}
               icon={item.leftIcon}
@@ -31,7 +42,7 @@ function GameHistoric({ gamePlay }: GameHistoricProps) {
               backgroundColor={item.iconColorRight}
               icon={item.rightIcon}
             />
-          </HistoryTag>
+          </Tag>
         )
       })}
     </BoxLayout>

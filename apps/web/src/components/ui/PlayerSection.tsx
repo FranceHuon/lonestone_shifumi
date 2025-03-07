@@ -22,7 +22,6 @@ function PlayerSection({
     >
       <Box
         display="flex"
-        // justifyContent="flex-start"
         height="100%"
       >
         {playerAvatar}

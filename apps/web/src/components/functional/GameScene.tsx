@@ -1,73 +1,66 @@
-import type { PlayersChoices } from './AppLayout'
+import type { PlayersChoices } from '@shifumi/dtos'
 import { Box, Flex } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { choices } from '../../utils/choices'
-import BoxHeading from '../ui/BoxHeading'
 import BoxLayout from '../ui/BoxLayout'
-import EndGameDisplay from '../ui/EndGameDisplay'
 import SymbolCard from '../ui/SymbolCard'
+import WinnerScreen from '../ui/WinnerScreen'
 import ResultScreen from './ResultScreen'
-import Timer from './Timer'
+// import Timer from './Timer'
 
 interface GameSceneProps {
-  isStarted: boolean
   gamePlay: PlayersChoices
-  winner: 'user' | 'computer' | null
-  timeLeft: number
+  winner: string
+  // timeLeft: number
   setGamePlay: React.Dispatch<React.SetStateAction<PlayersChoices>>
-  isTimerActive: boolean
-  setIsTimerActive: React.Dispatch<React.SetStateAction<boolean>>
-  setTimeLeft: React.Dispatch<React.SetStateAction<number>>
+  // isTimerActive: boolean
+  // setIsTimerActive: React.Dispatch<React.SetStateAction<boolean>>
+  // setTimeLeft: React.Dispatch<React.SetStateAction<number>>
 }
 
 function GameScene({
-  isStarted,
   gamePlay,
   winner,
-  setGamePlay,
-  timeLeft,
-  isTimerActive,
-  setIsTimerActive,
-  setTimeLeft,
+  // setGamePlay,
+  // timeLeft,
+  // isTimerActive,
+  // setIsTimerActive,
+  // setTimeLeft,
 }: GameSceneProps) {
   const { t } = useTranslation('common')
   const lastGamePlay = gamePlay[gamePlay.length - 1]
-  const userLastGamePlay = lastGamePlay?.userChoice
-  const computerLastGamePlay = lastGamePlay?.computerChoice
+  const userLastGamePlay = lastGamePlay?.playerOneChoice
+  const computerLastGamePlay = lastGamePlay?.playerTwoChoice
   const roundNumber = gamePlay.length
 
-  useEffect(() => {
-    if (winner) {
-      setIsTimerActive(false)
-    }
-  }, [winner, setIsTimerActive])
+  // useEffect(() => {
+  //   if (winner) {
+  //     setIsTimerActive(false)
+  //   }
+  // }, [winner, setIsTimerActive])
 
   return (
-    <BoxLayout width={710}>
-      <Box>
-        <BoxHeading>
-          {t('round')}
-          {' '}
-          {roundNumber}
-        </BoxHeading>
-      </Box>
-
+    <BoxLayout width={710} title={`${t('round')} ${roundNumber}`}>
       <Flex width="full" flexGrow={1}>
-        {isStarted && isTimerActive && !winner && (
-          <Timer
-            setGamePlay={setGamePlay}
-            isTimerActive={isTimerActive}
-            setIsTimerActive={setIsTimerActive}
-            setTimeLeft={setTimeLeft}
-            timeLeft={timeLeft}
-            gamePlay={gamePlay}
-          />
-        )}
-        {!winner
-        && computerLastGamePlay
-        && userLastGamePlay
-        && !isTimerActive && (
+        {
+        // isTimerActive
+        // &&
+          // !winner && (
+          // <Timer
+          //   setGamePlay={setGamePlay}
+          // isTimerActive={isTimerActive}
+          // setIsTimerActive={setIsTimerActive}
+          // setTimeLeft={setTimeLeft}
+          // timeLeft={timeLeft}
+          //   gamePlay={gamePlay}
+          // />
+          // )
+        }
+        {!winner && computerLastGamePlay && userLastGamePlay && (
+        // !isTimerActive
+        // &&
+        // (
           <Box
             display="flex"
             width="100%"
@@ -110,8 +103,7 @@ function GameScene({
             </Box>
           </Box>
         )}
-        {/* {winner && <WinnerDisplay winner={winner} />} */}
-        {winner && !isTimerActive && (<EndGameDisplay />)}
+        {winner && <WinnerScreen winner={winner} />}
       </Flex>
     </BoxLayout>
   )
